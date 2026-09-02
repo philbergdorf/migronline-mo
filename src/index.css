@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Type: Helvetica Now per the design system; system Helvetica stack as rendering fallback. */
+:root {
+  font-family: 'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #333333; /* mo.sys.color.text.main */
+  background: #f0f0f0; /* mo.sys.color.background.recessed */
+  /* Native app feel: no text selection or overscroll bounce, no tap highlight */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+input,
+textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+/* mo.sys.color.other.accessibility-focus (m-orange/900) */
+*:focus-visible {
+  outline: 3px solid #803300;
+  outline-offset: 3px;
+}
+
+/* Hide scrollbar on horizontal chip rows */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Liquid Glass — retained ONLY for the floating tab bar + search button.
+   Neutral white frost over the Migros Online surfaces; ink-based elevation.
+--------------------------------------------------------------------------- */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 4px 16px -4px rgba(51, 51, 51, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-thin {
+  background: rgba(255, 102, 0, 0.12); /* mo.sys.color.primary.blend-subtle */
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: inset 0 0 0 1px rgba(255, 102, 0, 0.2);
+}
