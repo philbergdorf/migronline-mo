@@ -1,0 +1,130 @@
+@config "../tailwind.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Type: Helvetica Now per the design system; system Helvetica stack as rendering fallback. */
+:root {
+  font-family: 'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #333333; /* mo.sys.color.text.main */
+  background: #f0f0f0; /* mo.sys.color.background.recessed */
+  /* Native app feel: no text selection or overscroll bounce, no tap highlight */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+input,
+textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+/* mo.sys.color.other.accessibility-focus (m-orange/900) */
+*:focus-visible {
+  outline: 3px solid #803300;
+  outline-offset: 3px;
+}
+
+/* Hide scrollbar on horizontal chip rows */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Liquid Glass — retained ONLY for the floating tab bar + search button.
+   Neutral white frost over the Migros Online surfaces; ink-based elevation.
+--------------------------------------------------------------------------- */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 4px 16px -4px rgba(51, 51, 51, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-thin {
+  background: rgba(255, 102, 0, 0.12); /* mo.sys.color.primary.blend-subtle */
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: inset 0 0 0 1px rgba(255, 102, 0, 0.2);
+}
+
+/* Quiet elevation separates white surfaces without tinting the whole canvas. */
+.ui-card,
+.ui-list,
+.ui-product-card {
+  border-color: #d3d3d3;
+  box-shadow:
+    0 2px 3px rgba(51, 51, 51, 0.045),
+    0 7px 16px -7px rgba(51, 51, 51, 0.20);
+}
+
+.campaign-teaser {
+  background-color: #fff8f2;
+  border-color: #efd9c9;
+  box-shadow:
+    0 2px 4px rgba(91, 53, 26, 0.05),
+    0 9px 20px -9px rgba(91, 53, 26, 0.22);
+}
+
+/* Shared merchandise cards adapt to their container width. */
+.shopping-product { container-type: inline-size; border: 1px solid #f0f0f0; border-radius: 12px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.10); }
+.shopping-product-layout { display: grid; grid-template-columns: 34% minmax(0,1fr); gap: 10px; min-height: 142px; padding: 10px; }
+.shopping-product-image { position: relative; min-height: 116px; }
+.shopping-product-image > img { position: absolute; inset: 0; padding: 12px 10px; }
+.shopping-product-discount { position: absolute; left: 0; top: 0; }
+.shopping-product-discount { background: #f60; color: #fff; padding: 2px 8px; font-size: 16px; line-height: 20px; font-weight: 800; }
+.shopping-product-content { display: flex; min-width: 0; flex-direction: column; padding: 1px 0; }
+.shopping-product-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; color: #333; font-size: 15px; line-height: 1.28; font-weight: 700; }
+.shopping-product-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 8px; }
+.shopping-product-chilled, .shopping-product-organic { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 9px; border-radius: 99px; font-size: 12px; }
+.shopping-product-chilled { background: #def4ff; color: #14607f; }
+.shopping-product-organic { background: #e8f3db; color: #426524; font-weight: 700; }
+.shopping-product-footer { position: relative; margin-top: auto; padding-top: 12px; padding-right: 40px; }
+.shopping-product-prices { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 5px; row-gap: 2px; color: #333; }
+.shopping-product-prices > strong { font-size: 25px; line-height: 1.05; font-weight: 800; letter-spacing: -.6px; }
+.shopping-product-was { font-size: 12px; white-space: nowrap; }
+.shopping-product-details { margin-top: 5px; color: #737373; font-size: 11px; line-height: 1.35; overflow-wrap: anywhere; }
+.shopping-product-restock { margin-top: 4px; color: #737373; font-size: 10px; line-height: 1.35; }
+.shopping-product-add { position: absolute; right: -5px; bottom: -5px; }
+.product-quantity-control { --quantity-size: 32px; position: relative; width: 44px; height: 44px; flex-shrink: 0; }
+.shopping-product .product-quantity-control { --quantity-size: 36px; }
+.product-quantity-collapsed { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; color: #595959; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.product-quantity-collapsed > span { display: grid; place-items: center; width: var(--quantity-size); height: var(--quantity-size); border: 2px solid #595959; border-radius: 8px; background: white; }
+.product-quantity-add { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; }
+.product-quantity-add > span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 6px; background: #f60; color: white; }
+.shopping-product .product-quantity-add > span { width: 36px; height: 36px; border-radius: 8px; }
+.product-quantity-stepper { position: absolute; right: calc((44px - var(--quantity-size)) / 2); bottom: 0; z-index: 5; display: inline-flex; align-items: center; height: 44px; padding: 0 2px; border-radius: 8px; color: #595959; }
+.product-quantity-stepper::before { content: ''; position: absolute; inset: calc((44px - var(--quantity-size)) / 2) 0; border-radius: inherit; background: white; box-shadow: -4px 0 0 white; pointer-events: none; }
+.product-quantity-stepper button { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 6px; }
+.product-quantity-stepper button, .product-quantity-stepper .product-quantity-count { position: relative; }
+.product-quantity-stepper::after { content: ''; position: absolute; inset: calc((44px - var(--quantity-size)) / 2) 0; border: 2px solid #595959; border-radius: inherit; pointer-events: none; }
+.product-quantity-stepper button:active { color: #111; }
+.product-quantity-count { min-width: 28px; padding: 0 3px; text-align: center; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; color: #333; }
+.product-card-purchase { flex-wrap: nowrap; gap: 0; min-height: 44px; }
+.product-card-purchase .product-quantity-control { align-self: flex-end; }
+.shopping-product-add svg { width: 21px; height: 21px; }
+@container (max-width: 315px) {
+  .shopping-product-layout { grid-template-columns: 30% minmax(0,1fr); gap: 8px; padding: 9px; }
+  .shopping-product-title { font-size: 14px; }
+  .shopping-product-prices > strong { font-size: 23px; }
+  .shopping-product-was { font-size: 11px; }
+}

@@ -1,0 +1,259 @@
+{
+  "note": "Reference photography for this local prototype. Product names, sizes and prices are illustrative and retained from the prototype; packaging may differ.",
+  "photos": [
+    {
+      "name": "Whole Milk",
+      "product": "Valflora Vollmilch 3.5 % Fett, UHT",
+      "source": "https://migipedia.migros.ch/de/valflora-vollmilch-35-fett-uht-204016100000",
+      "url": "https://image.migros.ch/d/2017-large/359ed60633e0d9c5214068880a9da6a0f4ed058c.png",
+      "file": "whole-milk.png"
+    },
+    {
+      "name": "Bio Bananas",
+      "product": "Bio Banane",
+      "source": "https://migipedia.migros.ch/de/bio-banane",
+      "url": "https://image.migros.ch/d/2017-large/70f2f68100546f2250edb34607d479f9c30ef820.png",
+      "file": "bio-bananas.png"
+    },
+    {
+      "name": "Free-range Eggs",
+      "product": "Aus der Region Eier Freilandhaltung",
+      "source": "https://migipedia.migros.ch/de/aus-der-region-eier-freilandhaltung",
+      "url": "https://image.migros.ch/d/2017-large/adb238e10a49642b9251d4791723109c2de90c6a.png",
+      "file": "free-range-eggs.png"
+    },
+    {
+      "name": "Sourdough Bread",
+      "product": "Aus der Region Walliser Naturroggen Brot",
+      "source": "https://migipedia.migros.ch/de/aus-der-region-walliser-naturroggen-brot",
+      "url": "https://image.migros.ch/d/2017-large/3295d8d4f360533fa29724f2a14d71e2bb9007bb.png",
+      "file": "sourdough-bread.png"
+    },
+    {
+      "name": "Cherry Tomatoes",
+      "product": "Migros Cherrytomaten am Zweig",
+      "source": "https://migipedia.migros.ch/de/cherrytomaten-am-zweig-271413502300",
+      "url": "https://image.migros.ch/d/2017-large/cda8ff32570061ca77f4534c44758ed825ec3a6f.png",
+      "file": "cherry-tomatoes.png"
+    },
+    {
+      "name": "Greek Yoghurt",
+      "product": "Yogos Joghurt Nature, griechischer Art",
+      "source": "https://migipedia.migros.ch/de/yogos-joghurt-nature-griechischer-art",
+      "url": "https://image.migros.ch/d/2017-large/a89ea7ced7e3241ba75d4a04c454e26f199d596d.png",
+      "file": "greek-yoghurt.png"
+    },
+    {
+      "name": "Butter",
+      "product": "Die Butter Butter",
+      "source": "https://migipedia.migros.ch/de/die-butter-butter-204241700000",
+      "url": "https://image.migros.ch/d/2017-large/9487d457ef7f15ac914a926d8e17ca9280e57e38.png",
+      "file": "butter.png"
+    },
+    {
+      "name": "Apples",
+      "product": "Migros Äpfel Gala",
+      "source": "https://migipedia.migros.ch/de/migros-aepfel-gala-260215701000",
+      "url": "https://image.migros.ch/d/2017-large/3b4b5cac73d2a0c701c130472124488317c25723.png",
+      "file": "apples.png"
+    },
+    {
+      "name": "Chicken Breast",
+      "product": "Pouletbrust",
+      "source": "https://migipedia.migros.ch/de/pouletbrust",
+      "url": "https://image.migros.ch/d/2017-large/85070ac065333608cc6e284ef905a28794d52e1d.png",
+      "file": "chicken-breast.png"
+    },
+    {
+      "name": "Pasta",
+      "product": "Migros Penne",
+      "source": "https://migipedia.migros.ch/de/m-classic-penne",
+      "url": "https://image.migros.ch/d/2017-large/bbd9ae71693356ae05b82144d8b549154213148d.png",
+      "file": "pasta.png"
+    },
+    {
+      "name": "Orange Juice",
+      "product": "Migros Orangensaft",
+      "source": "https://migipedia.migros.ch/de/migros-orangensaft-122088100000",
+      "url": "https://image.migros.ch/d/2017-large/4bb31a13b2859a2d410907626c64f332363f639d.png",
+      "file": "orange-juice.png"
+    },
+    {
+      "name": "Dark Chocolate",
+      "product": "Frey Noir Special 72%",
+      "source": "https://migipedia.migros.ch/de/frey-noir-special-72-100121700000",
+      "url": "https://image.migros.ch/d/2017-large/2db20e449f14b49237ed05c22f0e219820d8b30a.png",
+      "file": "dark-chocolate.png"
+    },
+    {
+      "name": "Laundry Detergent",
+      "product": "Total Flüssigwaschmittel 36 Waschgänge, Color",
+      "source": "https://migipedia.migros.ch/de/total-fluessigwaschmittel-36-waschgaenge-color",
+      "url": "https://image.migros.ch/d/2017-large/30606645515cd1317d7404c1c6dd77f837e23d0e.png",
+      "file": "laundry-detergent.png"
+    },
+    {
+      "name": "Toilet Paper",
+      "product": "Soft Supreme White 4-lagig",
+      "source": "https://migipedia.migros.ch/de/soft-supreme-white-4-lagig",
+      "url": "https://image.migros.ch/d/2017-large/8dd31313ea76e5ea69510c4820f3518f104dcb4c.png",
+      "file": "toilet-paper.png"
+    },
+    {
+      "name": "Dishwasher Tabs",
+      "product": "L'Arbre Vert Geschirrspültabs",
+      "source": "https://migipedia.migros.ch/de/larbre-vert-geschirrspueltabs",
+      "url": "https://image.migros.ch/d/2017-large/9c6b522b7c24e6e6f1c3eece3b9a34327822c5c4.png",
+      "file": "dishwasher-tabs.png"
+    },
+    {
+      "name": "Olive Oil",
+      "product": "Don Pablo Olivenöl  extra vergine",
+      "source": "https://migipedia.migros.ch/de/don-pablo-olivenoel-extra-vergine",
+      "url": "https://image.migros.ch/d/2017-large/93e7438d2fe7854ba6fe2ba84944d5424892ef70.png",
+      "file": "olive-oil.png"
+    },
+    {
+      "name": "Coffee Beans",
+      "product": "Café Royal Bohnenkaffee Crema Brasil",
+      "source": "https://migipedia.migros.ch/de/cafe-royal-bohnenkaffee-crema-brasil",
+      "url": "https://image.migros.ch/d/2017-large/85d611b07f6a26b02627024faeaf8eb974bf864d.png",
+      "file": "coffee-beans.png"
+    },
+    {
+      "name": "Avocado",
+      "product": "Migros Avocado",
+      "source": "https://migipedia.migros.ch/de/migros-avocado",
+      "url": "https://image.migros.ch/d/2017-large/2b5de843a56f782fc8bb14c45c25373357faeb74.png",
+      "file": "avocado.png"
+    },
+    {
+      "name": "Grapes",
+      "product": "Migros Trauben kernlos weiss",
+      "source": "https://migipedia.migros.ch/de/migros-trauben-kernlos-weiss",
+      "url": "https://image.migros.ch/d/2017-large/ee0083be3403c9cbbe0d26749a67c5ea3f2b584b.png",
+      "file": "grapes.png"
+    },
+    {
+      "name": "Bell Peppers",
+      "product": "Migros Peperoni gemischt",
+      "source": "https://migipedia.migros.ch/de/migros-peperoni-gemischt-271708502100",
+      "url": "https://image.migros.ch/d/2017-large/b8100bc8c13863936903296ae77d14923dce20b0.png",
+      "file": "bell-peppers.png"
+    },
+    {
+      "name": "Gruyère AOP",
+      "product": "Gruyère Hartkäse surchoix",
+      "source": "https://migipedia.migros.ch/de/le-gruyere-surchoix",
+      "url": "https://image.migros.ch/d/2017-large/13c3667c6087210684b61784db97fed46f15ead3.png",
+      "file": "gruyere-aop.png"
+    },
+    {
+      "name": "Baguette",
+      "product": "Steinofen Baguette helles Mehl",
+      "source": "https://migipedia.migros.ch/de/baguette-111188200500",
+      "url": "https://image.migros.ch/d/2017-large/cf923f0c6a17d8b1d64ccf2c5ebe5f876a8f16ed.png",
+      "file": "baguette.png"
+    },
+    {
+      "name": "Croissant",
+      "product": "M-Classic Buttergipfel",
+      "source": "https://migipedia.migros.ch/de/m-classic-buttergipfel",
+      "url": "https://image.migros.ch/d/2017-large/809c53bbbe9f05fb7cc691d22efc988eb722e0cd.png",
+      "file": "croissant.png"
+    },
+    {
+      "name": "Pretzel",
+      "product": "Laugenbrezel",
+      "source": "https://migipedia.migros.ch/de/laugenbrezel-111708305500",
+      "url": "https://image.migros.ch/d/2017-large/043b278dd7e796af7622f0ea312c9171245f36e7.png",
+      "file": "pretzel.png"
+    },
+    {
+      "name": "Potato Chips",
+      "product": "Migros Chips Paprika",
+      "source": "https://migipedia.migros.ch/de/migros-chips-paprika",
+      "url": "https://image.migros.ch/d/2017-large/2b69c6003ce9ec692dcf83c40ad77ca11726e092.png",
+      "file": "potato-chips.png"
+    },
+    {
+      "name": "Salted Nuts",
+      "product": "Party Erdnüsse gesalzen",
+      "source": "https://migipedia.migros.ch/de/party-erdnuesse-gesalzen-101402800000",
+      "url": "https://image.migros.ch/d/2017-large/57aa76ee4ee6e66f663d9021cc4024e5763ecd88.png",
+      "file": "salted-nuts.png"
+    },
+    {
+      "name": "Almonds",
+      "product": "M-Budget Mandeln",
+      "source": "https://migipedia.migros.ch/de/m-budget-mandeln",
+      "url": "https://image.migros.ch/d/2017-large/a3f0576f8845bf20666e495a28440c0269a082cc.png",
+      "file": "almonds.png"
+    },
+    {
+      "name": "Spaghetti",
+      "product": "Migros Spaghetti",
+      "source": "https://migipedia.migros.ch/de/migros-spaghetti-104041100000",
+      "url": "https://image.migros.ch/d/2017-large/971fe720ebec3c829827c13fb403dbd8eb362cbf.png",
+      "file": "spaghetti.png"
+    },
+    {
+      "name": "Pecorino",
+      "product": "Pecorino romano",
+      "source": "https://migipedia.migros.ch/de/pecorino-romano",
+      "url": "https://image.migros.ch/d/2017-large/12717a0bfbb2599d79fc47db22176ae26a4a4dc3.png",
+      "file": "pecorino.png"
+    },
+    {
+      "name": "Guanciale",
+      "product": "Citterio Würfeli Guanciale",
+      "source": "https://migipedia.migros.ch/de/citterio-wuerfeli-guanciale",
+      "url": "https://image.migros.ch/d/2017-large/d6efa22cb5a7737141cae98b6d50d6850ae31f91.png",
+      "file": "guanciale.png"
+    },
+    {
+      "name": "Mozzarella",
+      "product": "Aus der Region Mozzarella",
+      "source": "https://migipedia.migros.ch/de/mozzarella",
+      "url": "https://image.migros.ch/d/2017-large/0f1e2b5153f985d99ee74d03821f5f18f54feea7.png",
+      "file": "mozzarella.png"
+    },
+    {
+      "name": "Sparkling Water",
+      "product": "Aproz Légère wenig Kohlensäure",
+      "source": "https://migipedia.migros.ch/de/aproz-legere-wenig-kohlensaeure",
+      "url": "https://image.migros.ch/d/2017-large/126072ed3c541e49127efa405c80249e2a49d6e7.png",
+      "file": "sparkling-water.png"
+    },
+    {
+      "name": "Rice",
+      "source": "https://www.migros.ch/fr/product/104415500000",
+      "url": "https://image.migros.ch/d/mo-boxed/v-w-1000-h-1000/o-af-1-t.clr-fff/dafa4f27252a5cd17dda4b694d10fcd408cae4b3/migros-riz-basmati.jpg",
+      "file": "rice.jpg"
+    },
+    {
+      "name": "Chasselas",
+      "source": "https://www.migros.ch/en/product/mo/5100953?context=online",
+      "url": "https://www-leshop-ch-cld-res.cloudinary.com/image/upload/w_1000%2Ch_1000%2Cd_mo-default-product-detail.png%2Cc_pad%2Cg_center%2Cfl_lossy%2Cb_rgb%3Afff/f_auto/e_unsharp_mask%3A99/q_auto/v20230325/prod/catalog/product/product-5100953",
+      "file": "chasselas.jpg"
+    },
+    {
+      "name": "Prosecco",
+      "source": "https://www.vivino.com/en/borga-prosecco-extra-dry/w/5723181",
+      "url": "https://images.vivino.com/thumbs/YI4-zSUARTucFCM-bp5hjw_pl_480x640.png",
+      "file": "prosecco.png"
+    },
+    {
+      "name": "Pinot Noir",
+      "source": "https://www.liquorcave.com/products/paquet-montagnac-pinot-noir-2022",
+      "url": "https://www.liquorcave.com/cdn/shop/files/Paquet-Montagnac-Bourgogne-Pinot-Noir.png?v=1734801761",
+      "file": "pinot-noir.png"
+    },
+    {
+      "name": "Rosé de Provence",
+      "source": "https://perrineswine.com/products/la-vidaubanaise-cotes-de-provence-rose-le-pro",
+      "url": "https://perrineswine.com/cdn/shop/products/img-0021_252c9c8c-0d16-41f5-b2ac-1e8c3835ced7.png?v=1692038068&width=1080",
+      "file": "rose-de-provence.png"
+    }
+  ]
+}
