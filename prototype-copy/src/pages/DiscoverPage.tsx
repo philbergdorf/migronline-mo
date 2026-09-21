@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useFreshDesign } from '../fresh/context'
 import FreshHero from '../fresh/FreshHero'
-import { ChevronRight, Ticket } from 'lucide-react'
+import { Ticket } from 'lucide-react'
+import WineFestivalBanner from '../components/WineFestivalBanner'
 import {
   SectionLabel,
   Card,
@@ -54,29 +55,7 @@ export default function DiscoverPage() {
             <h1 className="font-display text-[28px] font-bold text-ink">Discover</h1>
             <ProfileButton />
           </div>
-          <button
-            type="button"
-            aria-label="Wine Festival: 20–40% off selected wines. See promotions"
-            onClick={() => navigate('/promotions')}
-            className="campaign-teaser relative block min-h-[164px] w-full overflow-hidden rounded-card border border-hairline bg-surface p-4 text-left shadow-soft transition-shadow active:bg-orange-50"
-          >
-            <div className="relative z-10 pr-[108px]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#994000]">Limited time</span>
-              <h2 className="mt-1 font-display text-[25px] font-bold leading-tight tracking-[-0.03em] text-ink">Wine Festival</h2>
-              <p className="mt-2 text-[14px] font-semibold text-muted">
-                <strong className="text-[21px] font-bold tracking-tight text-[#994000]">20–40% off</strong>
-                <span className="mt-0.5 block text-[12px] font-normal">Selected favourites</span>
-              </p>
-              <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-bold text-ink">
-                Explore wines <ChevronRight size={16} className="text-primary" strokeWidth={2.5} />
-              </span>
-            </div>
-            <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 w-[118px]">
-              <div className="absolute -right-9 bottom-0 h-[148px] w-[148px] rounded-full bg-primary/[0.08]" />
-              <img src={`${import.meta.env.BASE_URL}images/products/pinot-noir.png`} alt="" className="absolute bottom-4 right-[57px] h-[137px] w-10 -rotate-[9deg] object-contain drop-shadow-md" />
-              <img src={`${import.meta.env.BASE_URL}images/products/rose-de-provence.png`} alt="" className="absolute -right-4 bottom-3 h-[146px] w-[108px] rotate-[9deg] object-contain drop-shadow-md" />
-            </div>
-          </button>
+          <WineFestivalBanner onExplore={() => navigate('/promotions')} />
         </div>
       )}
 
