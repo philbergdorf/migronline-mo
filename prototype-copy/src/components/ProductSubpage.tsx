@@ -4,11 +4,11 @@ import ShoppingProductCard from './ShoppingProductCard'
 
 export type ProductItem = { name: string; sub: string; price: string; discount?: number }
 
-export function ProductSubpageHeader({ title, description }: { title: string; description?: string }) {
+export function ProductSubpageHeader({ title, description, onBack }: { title: string; description?: string; onBack?: () => void }) {
   const navigate = useNavigate()
   return <header className="px-4 pb-3 pt-[calc(env(safe-area-inset-top)+1.75rem)]">
     <div className="flex items-center gap-3">
-      <button type="button" aria-label="Back to Products" onClick={() => navigate('/products')} className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-hairline bg-surface text-forest shadow-soft active:scale-95">
+      <button type="button" aria-label="Back" onClick={onBack ?? (() => navigate('/products'))} className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-hairline bg-surface text-forest shadow-soft active:scale-95">
         <ChevronLeft size={20} strokeWidth={2.2} />
       </button>
       <h1 className="font-display text-[28px] font-bold text-ink">{title}</h1>
