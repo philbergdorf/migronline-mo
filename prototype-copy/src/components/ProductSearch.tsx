@@ -7,9 +7,8 @@ import ShoppingProductCard from './ShoppingProductCard'
 
 const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
-export default function ProductSearch({ background, basket = false }: {
+export default function ProductSearch({ background }: {
   background: RefObject<HTMLDivElement>
-  basket?: boolean
 }) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -46,7 +45,7 @@ export default function ProductSearch({ background, basket = false }: {
         aria-expanded={open}
         onClick={() => setOpen(true)}
         hidden={open}
-        style={{ bottom: `calc(max(0.75rem, env(safe-area-inset-bottom)) + ${basket ? '10rem' : '5rem'})` }}
+        style={{ bottom: 'calc(max(0.75rem, env(safe-area-inset-bottom)) + 5rem)' }}
         className={`${open ? 'hidden' : 'grid'} absolute right-5 z-40 h-14 w-14 place-items-center rounded-full border-2 border-white bg-primary text-white shadow-[0_6px_24px_rgba(51,51,51,0.28)] transition-transform active:scale-95`}
       >
         <Search size={27} strokeWidth={2.2} />

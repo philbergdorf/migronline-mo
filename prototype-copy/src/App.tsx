@@ -60,7 +60,7 @@ export default function App() {
 
           <GlassTabbar tabs={TABS} active={pathname} onChange={navigate} />
           </div>
-          {pathname !== '/cook' && <ProductSearch key={pathname} background={shoppingRef} basket={pathname === '/basket'} />}
+          {pathname !== '/cook' && pathname !== '/basket' && <ProductSearch key={pathname} background={shoppingRef} />}
         </PhoneFrame>
         </BasketProvider>
       </FavoritesProvider>
