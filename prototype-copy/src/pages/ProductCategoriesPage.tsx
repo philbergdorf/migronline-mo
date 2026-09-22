@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
-import { ChevronDown, ChevronRight, PackageOpen } from 'lucide-react'
-import { ProductCardList, ProductSubpageHeader, type ProductItem } from '../components/ProductSubpage'
+import { useRef, useState } from 'react'
+import { Apple, Beef, Baby, Coffee, Cookie, Croissant, Milk, Package, SprayCan, Wine, Leaf, Snowflake, Cat, Heart, CookingPot, Pencil, Flower2, Gift, Shirt, ChevronDown, ChevronRight } from 'lucide-react'
+import { ProductSubpageHeader, type ProductItem } from '../components/ProductSubpage'
+import ProductQuantityControl from '../components/ProductQuantityControl'
 import { PRODUCT_CATALOG } from '../lib/productCatalog'
+import { productPresentation } from '../lib/productPresentation'
 
 type Level2Category = {
   name: string
@@ -120,97 +122,96 @@ const CATEGORY_TREE: Level1Category[] = [
 const productsByName = (names: string[] = []): ProductItem[] =>
   names.flatMap(name => PRODUCT_CATALOG.filter(product => product.name === name))
 
+const departmentIcons = [Leaf, Apple, Beef, Milk, Croissant, Package, Cookie, Snowflake, Coffee, Wine, Cat, Baby, Heart, SprayCan, CookingPot, Pencil, Flower2, Gift, Shirt]
+
 export default function ProductCategoriesPage() {
-  const [level1, setLevel1] = useState(CATEGORY_TREE[1])
-  const [expanded, setExpanded] = useState(CATEGORY_TREE[1].groups[0].name)
-  const [level2, setLevel2] = useState<Level2Category | null>(null)
+  const [expanded, setExpanded] = useState<string | null>(null)
+  const [selection, setSelection] = useState<{ department: Level1Category; group: Level2Category } | null>(null)
   const [level3, setLevel3] = useState('All')
+  const savedScroll = useRef(0)
 
-  useEffect(() => {
-    setExpanded(level1.groups[0]?.name ?? '')
-  }, [level1])
-
-  const openLevel2 = (group: Level2Category) => {
-    setLevel2(group)
+  const openCategory = (department: Level1Category, group: Level2Category) => {
+    savedScroll.current = document.querySelector('.overflow-auto')?.scrollTop ?? 0
+    setSelection({ department, group })
     setLevel3('All')
-    requestAnimationFrame(() => document.querySelector('.overflow-auto')?.scrollTo({ top: 0, behavior: 'smooth' }))
+    requestAnimationFrame(() => document.querySelector('.overflow-auto')?.scrollTo({ top: 0 }))
   }
 
-  if (level2) {
-    const allProducts = productsByName(level2.products)
-    const filteredNames = level3 === 'All' ? level2.products : level2.filters?.[level3]
-    const products = productsByName(filteredNames ?? level2.products)
+  const backToCategories = () => {
+    setSelection(null)
+    requestAnimationFrame(() => document.querySelector('.overflow-auto')?.scrollTo({ top: savedScroll.current }))
+  }
 
+  if (selection) {
+    const { department, group } = selection
+    const products = productsByName(level3 === 'All' ? group.products : group.filters?.[level3] ?? [])
     return <>
-      <ProductSubpageHeader
-        title={level2.name}
-        description={`${level1.name} · ${allProducts.length} ${allProducts.length === 1 ? 'product' : 'products'}`}
-        onBack={() => setLevel2(null)}
-      />
-      <div className="mb-5 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="flex w-max gap-2">
-          {['All', ...level2.level3].map(category => <button
-            key={category}
-            type="button"
-            onClick={() => setLevel3(category)}
-            className={`min-h-10 rounded-full border px-4 text-[13px] font-bold active:scale-[0.97] ${level3 === category ? 'border-primary bg-primary text-white' : 'border-hairline bg-white text-ink'}`}
-          >{category}</button>)}
-        </div>
+      <ProductSubpageHeader title={group.name} description={department.name} onBack={backToCategories} />
+      <div className="category-filter-rail" aria-label="Subcategories">
+        {['All', ...group.level3].map(category => <button
+          key={category}
+          type="button"
+          aria-pressed={level3 === category}
+          onClick={() => setLevel3(category)}
+          className="category-filter"
+        >{category}</button>)}
       </div>
-      {products.length > 0 ? <ProductCardList products={products} /> : <div className="mx-4 rounded-2xl border border-hairline bg-white px-6 py-10 text-center shadow-soft">
-        <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-sand text-primary"><PackageOpen size={23} /></span>
-        <h2 className="mt-4 text-[17px] font-bold text-ink">Products coming soon</h2>
-        <p className="mx-auto mt-1 max-w-[260px] text-[13px] leading-relaxed text-label">This category is part of the full Migros assortment. The prototype does not contain matching products yet.</p>
+      <p className="category-result-count">{products.length} {products.length === 1 ? 'product' : 'products'}</p>
+      <div className="category-products">
+        {products.map(product => <CategoryProduct key={product.name} product={product} />)}
+      </div>
+      {products.length === 0 && <div className="category-empty">
+        <h2>No products here yet</h2>
+        <p>Try another category.</p>
+        {level3 !== 'All' && <button type="button" onClick={() => setLevel3('All')}>View all {group.name.toLowerCase()}</button>}
       </div>}
       <div className="h-44" />
     </>
   }
 
   return <>
-    <ProductSubpageHeader title="Categories" description="Browse the Migros assortment by department." />
-    <div className="overflow-x-auto px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="flex w-max gap-2">
-        {CATEGORY_TREE.map(category => <button
-          key={category.name}
-          type="button"
-          onClick={() => setLevel1(category)}
-          className={`min-h-11 rounded-full border px-4 text-[13px] font-bold active:scale-[0.97] ${level1.name === category.name ? 'border-primary bg-primary text-white shadow-soft' : 'border-hairline bg-white text-ink'}`}
-        >{category.name}</button>)}
-      </div>
-    </div>
-
-    <section className="mx-4 overflow-hidden rounded-2xl border border-hairline bg-white shadow-soft">
-      <div className="border-b border-hairline bg-[#FFF7EE] px-4 py-3">
-        <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">Department</p>
-        <h2 className="mt-0.5 text-[20px] font-bold text-ink">{level1.name}</h2>
-      </div>
-      {level1.groups.map((group, index) => {
-        const isOpen = expanded === group.name
-        return <div key={group.name} className={index ? 'border-t border-hairline' : ''}>
+    <ProductSubpageHeader title="Categories" />
+    <section className="category-tree" aria-label="Departments">
+      {CATEGORY_TREE.map((department, index) => {
+        const isOpen = expanded === department.name
+        const Icon = departmentIcons[index]
+        return <div key={department.name}>
           <button
             type="button"
+            className="category-department"
             aria-expanded={isOpen}
-            onClick={() => setExpanded(isOpen ? '' : group.name)}
-            className="flex min-h-[58px] w-full items-center justify-between gap-3 px-4 py-3 text-left active:bg-sand/50"
+            aria-controls={`department-${index}`}
+            onClick={() => setExpanded(isOpen ? null : department.name)}
           >
-            <span>
-              <strong className="block text-[15px] text-ink">{group.name}</strong>
-              <span className="mt-0.5 block text-[12px] text-label">{group.level3.length} categories</span>
-            </span>
-            <ChevronDown size={20} className={`shrink-0 text-label transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+            <Icon className="category-department-icon" size={25} strokeWidth={1.6} aria-hidden="true" />
+            <span>{department.name}</span>
+            {isOpen ? <ChevronDown size={21} aria-hidden="true" /> : <ChevronRight size={21} aria-hidden="true" />}
           </button>
-          {isOpen && <div className="border-t border-hairline bg-[#FFFCF8] px-4 pb-4 pt-3">
-            <div className="flex flex-wrap gap-2">
-              {group.level3.map(category => <span key={category} className="rounded-full bg-sand px-3 py-1.5 text-[12px] font-semibold text-ink">{category}</span>)}
-            </div>
-            <button type="button" onClick={() => openLevel2(group)} className="mt-4 flex min-h-11 w-full items-center justify-between rounded-xl bg-primary px-4 text-[14px] font-bold text-white active:scale-[0.99]">
-              <span>Browse {group.name}</span>
-              <ChevronRight size={19} />
-            </button>
+          {isOpen && <div id={`department-${index}`} className="category-children">
+            {department.groups.map(group => <button key={group.name} type="button" onClick={() => openCategory(department, group)}>
+              <span>{group.name}</span>
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>)}
           </div>}
         </div>
       })}
     </section>
     <div className="h-44" />
   </>
+}
+
+function CategoryProduct({ product }: { product: ProductItem }) {
+  const presentation = productPresentation(product.name, product.sub, product.price, product.discount)
+  return <article className="category-product" aria-label={product.name}>
+    <h3>{presentation.title}</h3>
+    <p>{presentation.packSize}{presentation.unitPrice && ` · ${presentation.unitPrice}`}</p>
+    <div className="category-product-purchase">
+      <div className="category-product-price">
+        {presentation.discount && <span className="category-product-discount">{presentation.discount}%</span>}
+        <strong>{presentation.amount.toFixed(2)}</strong>
+        {presentation.regularPrice && <span>was {presentation.regularPrice.toFixed(2)}</span>}
+      </div>
+      <ProductQuantityControl name={product.name} price={product.price} />
+    </div>
+  </article>
 }
