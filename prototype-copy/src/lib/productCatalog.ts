@@ -40,6 +40,21 @@ export const PRODUCT_IMAGES: Record<string, string> = {
 }
 
 export const PRODUCT_CATALOG = [
+  // Additional prototype assortment; illustrative prices, photos optional.
+  { name: 'Broccoli', sub: '500 g', price: 'CHF 2.90' },
+  { name: 'Courgettes', sub: '500 g', price: 'CHF 2.60' },
+  { name: 'Button Mushrooms', sub: '250 g', price: 'CHF 2.40' },
+  { name: 'Oranges', sub: '1 kg', price: 'CHF 3.90' },
+  { name: 'Strawberries', sub: '250 g', price: 'CHF 4.50' },
+  { name: 'Carrots', sub: '1 kg', price: 'CHF 2.20' },
+  { name: 'Potatoes', sub: '1 kg', price: 'CHF 2.80' },
+  { name: 'Lettuce', sub: '1 pc', price: 'CHF 1.90' },
+  { name: 'Fresh Basil', sub: '20 g', price: 'CHF 1.80' },
+  { name: 'Rolled Oats', sub: '500 g', price: 'CHF 1.60' },
+  { name: 'Chopped Tomatoes', sub: '400 g', price: 'CHF 1.40' },
+  { name: 'Frozen Peas', sub: '500 g', price: 'CHF 2.90' },
+  { name: 'Oat Drink', sub: '1 L', price: 'CHF 2.30' },
+  { name: 'Green Tea', sub: '25 pcs', price: 'CHF 2.80' },
   {
     "name": "Whole Milk",
     "sub": "1 L · UHT",

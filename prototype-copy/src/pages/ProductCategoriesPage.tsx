@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react'
 import { Apple, Beef, Baby, Coffee, Cookie, Croissant, Milk, Package, SprayCan, Wine, Leaf, Snowflake, Cat, Heart, CookingPot, Pencil, Flower2, Gift, Shirt, ChevronDown, ChevronRight } from 'lucide-react'
-import { ProductSubpageHeader, type ProductItem } from '../components/ProductSubpage'
-import ProductQuantityControl from '../components/ProductQuantityControl'
+import { ProductCardList, ProductSubpageHeader, type ProductItem } from '../components/ProductSubpage'
 import { PRODUCT_CATALOG } from '../lib/productCatalog'
-import { productPresentation } from '../lib/productPresentation'
 
 type Level2Category = {
   name: string
@@ -119,6 +117,30 @@ const CATEGORY_TREE: Level1Category[] = [
   ] },
 ]
 
+// A small demo selection fills out frequently browsed branches.
+const extraAssortment: Record<string, Record<string, string[]>> = {
+  Vegetables: { 'Cauliflower, broccoli & cabbage': ['Broccoli'], 'Courgettes, aubergines & peppers': ['Courgettes'], Mushrooms: ['Button Mushrooms'] },
+  Fruits: { 'Citrus fruits': ['Oranges'], Berries: ['Strawberries'] },
+  'Root vegetables': { Carrots: ['Carrots'], Potatoes: ['Potatoes'] },
+  Salad: { 'Leaf salads': ['Lettuce'] },
+  'Fresh herbs & spices': { 'Fresh herbs': ['Fresh Basil'] },
+  Breakfast: { 'Muesli & cereals': ['Rolled Oats'] },
+  'Canned food': { Vegetables: ['Chopped Tomatoes'] },
+  'Frozen fruit & vegetables': { Vegetables: ['Frozen Peas'] },
+  'Vegan dairy alternatives': { 'Plant drinks': ['Oat Drink'] },
+  Tea: { 'Green tea': ['Green Tea'] },
+}
+for (const department of CATEGORY_TREE) {
+  for (const group of department.groups) {
+    const additions = extraAssortment[group.name]
+    if (!additions) continue
+    group.products = [...(group.products ?? []), ...Object.values(additions).flat()]
+    for (const [filter, names] of Object.entries(additions)) {
+      group.filters = { ...group.filters, [filter]: [...(group.filters?.[filter] ?? []), ...names] }
+    }
+  }
+}
+
 const productsByName = (names: string[] = []): ProductItem[] =>
   names.flatMap(name => PRODUCT_CATALOG.filter(product => product.name === name))
 
@@ -157,9 +179,7 @@ export default function ProductCategoriesPage() {
         >{category}</button>)}
       </div>
       <p className="category-result-count">{products.length} {products.length === 1 ? 'product' : 'products'}</p>
-      <div className="category-products">
-        {products.map(product => <CategoryProduct key={product.name} product={product} />)}
-      </div>
+      <ProductCardList products={products} />
       {products.length === 0 && <div className="category-empty">
         <h2>No products here yet</h2>
         <p>Try another category.</p>
@@ -198,20 +218,4 @@ export default function ProductCategoriesPage() {
     </section>
     <div className="h-44" />
   </>
-}
-
-function CategoryProduct({ product }: { product: ProductItem }) {
-  const presentation = productPresentation(product.name, product.sub, product.price, product.discount)
-  return <article className="category-product" aria-label={product.name}>
-    <h3>{presentation.title}</h3>
-    <p>{presentation.packSize}{presentation.unitPrice && ` · ${presentation.unitPrice}`}</p>
-    <div className="category-product-purchase">
-      <div className="category-product-price">
-        {presentation.discount && <span className="category-product-discount">{presentation.discount}%</span>}
-        <strong>{presentation.amount.toFixed(2)}</strong>
-        {presentation.regularPrice && <span>was {presentation.regularPrice.toFixed(2)}</span>}
-      </div>
-      <ProductQuantityControl name={product.name} price={product.price} />
-    </div>
-  </article>
 }
