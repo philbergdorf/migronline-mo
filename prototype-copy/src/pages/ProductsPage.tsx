@@ -34,25 +34,25 @@ export default function ProductsPage() {
             icon={<Heart size={18} strokeWidth={2} />}
             tint="bg-tomato/12 text-tomato"
             label="Favorites"
-            onClick={() => navigate('/products')}
+            onClick={() => navigate('/products/favorites')}
           />
           <NavRow
             icon={<Sparkles size={18} strokeWidth={2} />}
             tint="bg-citrus/15 text-citrus"
             label="Newly available"
-            onClick={() => navigate('/products')}
+            onClick={() => navigate('/products/new')}
           />
           <NavRow
             icon={<LayoutGrid size={18} strokeWidth={2} />}
             tint="bg-primary/12 text-forest"
             label="Categories"
-            onClick={() => navigate('/products')}
+            onClick={() => navigate('/products/categories')}
           />
           <NavRow
             icon={<Package size={18} strokeWidth={2} />}
             tint="bg-berry/12 text-berry"
             label="Your recent orders"
-            onClick={() => navigate('/products')}
+            onClick={() => navigate('/products/orders')}
           />
         </ListGroup>
       </div>

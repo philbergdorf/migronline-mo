@@ -19,7 +19,7 @@ export function GlassTabbar({
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <nav className="glass pointer-events-auto flex items-center gap-0.5 rounded-full p-1.5">
         {tabs.map(({ path, label, Icon }) => {
-          const isActive = path === active
+          const isActive = path === active || (path === '/products' && active.startsWith('/products/'))
           return (
             <button
               key={path}

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { Page } from 'konsta/react'
 import { Compass, TextSearch, BadgePercent, ChefHat, ShoppingBasket } from 'lucide-react'
@@ -10,6 +10,10 @@ import { MealPlanProvider } from './lib/mealPlan'
 import DiscoverPage from './pages/DiscoverPage'
 import ProductsPage from './pages/ProductsPage'
 import TopProductsPage from './pages/TopProductsPage'
+import FavoriteProductsPage from './pages/FavoriteProductsPage'
+import NewProductsPage from './pages/NewProductsPage'
+import ProductCategoriesPage from './pages/ProductCategoriesPage'
+import RecentOrdersPage from './pages/RecentOrdersPage'
 import PromotionsPage from './pages/PromotionsPage'
 import CookPage from './pages/CookPage'
 import BasketPage from './pages/BasketPage'
@@ -28,6 +32,9 @@ export default function App() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const shoppingRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    shoppingRef.current?.querySelector<HTMLElement>('.overflow-auto')?.scrollTo({ top: 0 })
+  }, [pathname])
 
   return (
     <CustomRecipesProvider>
@@ -41,6 +48,10 @@ export default function App() {
               <Route path="/" element={<DiscoverPage />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/top-products" element={<TopProductsPage />} />
+              <Route path="/products/favorites" element={<FavoriteProductsPage />} />
+              <Route path="/products/new" element={<NewProductsPage />} />
+              <Route path="/products/categories" element={<ProductCategoriesPage />} />
+              <Route path="/products/orders" element={<RecentOrdersPage />} />
               <Route path="/promotions" element={<PromotionsPage />} />
               <Route path="/cook" element={<CookPage />} />
               <Route path="/basket" element={<BasketPage />} />
