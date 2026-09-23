@@ -26,15 +26,17 @@ function BasketItem({ line }: { line: BasketLine }) {
       <ProductImage name={line.name} />
       {discount > 0 && <span className="absolute left-0 top-0 rounded-sm bg-primary px-1.5 py-0.5 text-[11px] font-extrabold text-white" aria-label={`${discount}% off`}>{discount}%</span>}
     </div>
-    <div className="min-w-0 flex-1 self-stretch py-0.5">
+    <div className="min-w-0 flex-1 py-0.5">
       <div className="line-clamp-2 text-[14px] font-bold leading-[1.25] text-ink">{line.name}</div>
-      <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5 text-[11px] leading-tight text-label">
+      {(saved > 0 || line.qty > 1) && <div className="mt-0.5 flex flex-wrap items-baseline gap-x-1.5 text-[11px] leading-tight text-label">
         {saved > 0 && <del>{chf(regularUnit)}</del>}
         {(saved > 0 || line.qty > 1) && <span>{line.qty} × {chf(line.unit)}</span>}
+      </div>}
+      <div className="mt-1 flex min-h-11 items-center justify-between gap-2">
+        <div className="truncate font-display text-[16px] font-extrabold leading-tight text-ink" aria-label={`Line total ${chf(line.unit * line.qty)}`}>{chf(line.unit * line.qty)}</div>
+        <div className="w-28 shrink-0"><ProductQuantityControl name={line.name} price={chf(line.unit)} alwaysExpanded /></div>
       </div>
-      <div className="mt-1 font-display text-[16px] font-extrabold leading-tight text-ink" aria-label={`Line total ${chf(line.unit * line.qty)}`}>{chf(line.unit * line.qty)}</div>
     </div>
-    <ProductQuantityControl name={line.name} price={chf(line.unit)} />
   </div>
 }
 

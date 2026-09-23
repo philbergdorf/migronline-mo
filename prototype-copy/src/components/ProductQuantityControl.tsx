@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useBasket } from '../lib/basket'
 
-export default function ProductQuantityControl({ name, price, discount }: { name: string; price: string; discount?: number }) {
+export default function ProductQuantityControl({ name, price, discount, alwaysExpanded = false }: { name: string; price: string; discount?: number; alwaysExpanded?: boolean }) {
   const { lines, addProduct, decrementProduct } = useBasket()
   const quantity = lines.find(line => line.name === name)?.qty ?? 0
   const [announcement, setAnnouncement] = useState('')
@@ -15,13 +15,13 @@ export default function ProductQuantityControl({ name, price, discount }: { name
     if (restoreFocus.current) { plusRef.current?.focus(); restoreFocus.current = false }
   }, [quantity, expanded])
   useEffect(() => {
-    if (!expanded || quantity === 0) return
+    if (alwaysExpanded || !expanded || quantity === 0) return
     const timer = window.setTimeout(() => {
       restoreFocus.current = controlRef.current?.contains(document.activeElement) ?? false
       setExpanded(false)
     }, 4000)
     return () => window.clearTimeout(timer)
-  }, [expanded, quantity, activity])
+  }, [alwaysExpanded, expanded, quantity, activity])
 
   const add = () => {
     restoreFocus.current = quantity === 0
@@ -29,9 +29,9 @@ export default function ProductQuantityControl({ name, price, discount }: { name
     addProduct({ name, price, discount })
     setAnnouncement(`${name}: ${quantity + 1} in basket.`)
   }
-  return <div ref={controlRef} className="product-quantity-control" onPointerDown={() => setActivity(value => value + 1)} onKeyDown={event => {
+  return <div ref={controlRef} className={`product-quantity-control${alwaysExpanded ? ' product-quantity-control--persistent' : ''}`} onPointerDown={() => setActivity(value => value + 1)} onKeyDown={event => {
     setActivity(value => value + 1)
-    if (event.key === 'Escape' && expanded) {
+    if (event.key === 'Escape' && expanded && !alwaysExpanded) {
       event.stopPropagation()
       restoreFocus.current = true
       setExpanded(false)
@@ -39,7 +39,7 @@ export default function ProductQuantityControl({ name, price, discount }: { name
   }}>
     {quantity === 0 ? <button ref={plusRef} type="button" className="product-quantity-add" aria-label={`Add ${name} to basket`} onClick={add}>
       <span><Plus size={21} aria-hidden="true" /></span>
-    </button> : !expanded ? <button ref={plusRef} type="button" className="product-quantity-collapsed" aria-label={`${quantity} ${name} in basket. Change quantity`} aria-expanded={false} onClick={() => {
+    </button> : !alwaysExpanded && !expanded ? <button ref={plusRef} type="button" className="product-quantity-collapsed" aria-label={`${quantity} ${name} in basket. Change quantity`} aria-expanded={false} onClick={() => {
       restoreFocus.current = true
       setExpanded(true)
     }}><span>{quantity}</span></button> : <div className="product-quantity-stepper" role="group" aria-label={`Quantity of ${name}`}>
