@@ -47,9 +47,9 @@ export default function ProductQuantityControl({ name, price, discount }: { name
         restoreFocus.current = quantity === 1
         decrementProduct(name)
         setAnnouncement(quantity === 1 ? `${name} removed from basket.` : `${name}: ${quantity - 1} in basket.`)
-      }}>{quantity === 1 ? <Trash2 size={22} aria-hidden="true" /> : <Minus size={22} aria-hidden="true" />}</button>
+      }}>{quantity === 1 ? <Trash2 size={20} aria-hidden="true" /> : <Minus size={20} aria-hidden="true" />}</button>
       <span className="product-quantity-count">{quantity}</span>
-      <button ref={plusRef} type="button" aria-label={`Increase ${name}`} onClick={add}><Plus size={22} aria-hidden="true" /></button>
+      <button ref={plusRef} type="button" aria-label={`Increase ${name}`} onClick={add}><Plus size={20} aria-hidden="true" /></button>
     </div>}
     <span className="sr-only" role="status">{announcement}</span>
   </div>
