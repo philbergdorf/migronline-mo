@@ -1,0 +1,1 @@
+import{g as s,j as e,R as t}from"./x-cjQEp-LM.js";import{F as r,A as o,H as a,a as n}from"./index-B4_tXABL.js";document.documentElement.classList.add("fresh-design");s.createRoot(document.getElementById("root")).render(e.jsx(t.StrictMode,{children:e.jsx(r.Provider,{value:!0,children:e.jsx(o,{theme:"ios",safeAreas:!0,children:e.jsx(a,{children:e.jsx(n,{})})})})}));
