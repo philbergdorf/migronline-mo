@@ -120,8 +120,7 @@ textarea {
 .product-quantity-stepper button:active { color: #111; }
 .product-quantity-count { min-width: 24px; padding: 0 2px; text-align: center; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; color: #333; }
 .product-quantity-control--persistent { --quantity-size: 36px; margin-left: auto; }
-.product-quantity-control--persistent .product-quantity-stepper::before { background: linear-gradient(to right, #fff 0, #fff calc(100% - 40px), #f2f2f2 calc(100% - 40px)); box-shadow: none; }
-.product-quantity-control--persistent .product-quantity-count { display: grid; place-items: center; height: 28px; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.product-quantity-control--persistent .product-quantity-stepper::before { box-shadow: none; }
 .product-quantity-control--persistent .product-quantity-stepper button:last-child svg { stroke-width: 2.7; }
 .product-quantity-control--persistent .product-quantity-stepper button:active { color: #111; transform: scale(.93); }
 .category-tree { padding-top: 8px; }
