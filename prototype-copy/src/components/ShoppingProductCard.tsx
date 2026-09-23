@@ -35,7 +35,7 @@ export default function ShoppingProductCard({ name, sub, price, discount }: {
             {product.restock && <p className="shopping-product-restock">{product.restock}</p>}
             {product.purchaseHistory && <p className="shopping-product-restock">{product.purchaseHistory}</p>}
             <div className="shopping-product-add">
-              <ProductQuantityControl name={name} price={price} />
+              <ProductQuantityControl name={name} price={price} discount={discount} />
             </div>
           </div>
         </div>

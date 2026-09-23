@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
+import { productPresentation } from './productPresentation'
 
 export type BasketLine = {
   name: string
@@ -34,7 +35,7 @@ const CATEGORIES: Record<string, string[]> = {
 
 type BasketContextValue = {
   lines: BasketLine[]
-  addProduct: (product: { name: string; price: string }) => void
+  addProduct: (product: { name: string; price: string; discount?: number }) => void
   setQty: (name: string, qty: number) => void
   decrementProduct: (name: string) => void
 }
@@ -45,17 +46,20 @@ export function BasketProvider({ children }: { children: ReactNode }) {
   const addProduct: BasketContextValue['addProduct'] = (product) => {
     const unit = Number(product.price.replace('CHF ', ''))
     if (!Number.isFinite(unit) || unit < 0) return
+    const regularUnit = productPresentation(product.name, '', product.price, product.discount).regularPrice ?? unit
     setLines((previous) => {
       if (previous.some((line) => line.name === product.name)) {
         return previous.map((line) => {
           if (line.name !== product.name) return line
           const bestUnit = Math.min(line.unit, unit)
+          const referenceUnit = Math.max(line.unit + (line.saved ?? 0), regularUnit)
           return { ...line, qty: line.qty + 1, unit: bestUnit,
-            saved: Math.round((line.unit + (line.saved ?? 0) - bestUnit) * 100) / 100 }
+            saved: Math.round((referenceUnit - bestUnit) * 100) / 100 }
         })
       }
       const category = Object.entries(CATEGORIES).find(([, names]) => names.includes(product.name))?.[0] ?? 'Pantry'
-      return [...previous, { name: product.name, unit, qty: 1, category, meal: 'Other products' }]
+      return [...previous, { name: product.name, unit, qty: 1, category, meal: 'Other products',
+        saved: Math.round((regularUnit - unit) * 100) / 100 }]
     })
   }
   const setQty = (name: string, qty: number) => {

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Minus, Plus } from 'lucide-react'
 import ProductImage from '../components/ProductImage'
+import ProductQuantityControl from '../components/ProductQuantityControl'
 import { useBasket, type BasketLine } from '../lib/basket'
 import { PageTitle, SectionLabel, OrderSummary, ListGroup, HScroll, ProductCard } from '../components/ui'
 
@@ -16,32 +16,30 @@ const FORGOT = [
 
 const chf = (n: number) => `CHF ${n.toFixed(2)}`
 
-function Stepper({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) {
-  return (
-    <div className="inline-flex items-center gap-0.5 rounded-full bg-sand p-0.5" role="group" aria-label={label}>
-      <button
-        type="button"
-        aria-label="Decrease"
-        onClick={() => onChange(Math.max(0, value - 1))}
-        className="grid h-8 w-8 place-items-center rounded-full bg-surface text-forest transition active:scale-95"
-      >
-        <Minus size={15} strokeWidth={2.5} />
-      </button>
-      <span className="min-w-[22px] text-center text-[14px] font-extrabold text-ink">{value}</span>
-      <button
-        type="button"
-        aria-label="Increase"
-        onClick={() => onChange(value + 1)}
-        className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white transition active:scale-95"
-      >
-        <Plus size={15} strokeWidth={2.5} />
-      </button>
+function BasketItem({ line }: { line: BasketLine }) {
+  const saved = line.saved ?? 0
+  const regularUnit = line.unit + saved
+  const discount = saved > 0 ? Math.round((saved / regularUnit) * 100) : 0
+
+  return <div className="flex min-h-[88px] items-center gap-3 px-3 py-2.5">
+    <div className="relative h-[68px] w-[62px] shrink-0 rounded-lg bg-white p-1">
+      <ProductImage name={line.name} />
+      {discount > 0 && <span className="absolute left-0 top-0 rounded-sm bg-primary px-1.5 py-0.5 text-[11px] font-extrabold text-white" aria-label={`${discount}% off`}>{discount}%</span>}
     </div>
-  )
+    <div className="min-w-0 flex-1 self-stretch py-0.5">
+      <div className="line-clamp-2 text-[14px] font-bold leading-[1.25] text-ink">{line.name}</div>
+      <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5 text-[11px] leading-tight text-label">
+        {saved > 0 && <del>{chf(regularUnit)}</del>}
+        {(saved > 0 || line.qty > 1) && <span>{line.qty} × {chf(line.unit)}</span>}
+      </div>
+      <div className="mt-1 font-display text-[16px] font-extrabold leading-tight text-ink" aria-label={`Line total ${chf(line.unit * line.qty)}`}>{chf(line.unit * line.qty)}</div>
+    </div>
+    <ProductQuantityControl name={line.name} price={chf(line.unit)} />
+  </div>
 }
 
 export default function BasketPage() {
-  const { lines, setQty } = useBasket()
+  const { lines } = useBasket()
   const [view, setView] = useState<'categories' | 'meals'>('categories')
 
   const groups = useMemo(() => {
@@ -92,18 +90,7 @@ export default function BasketPage() {
         <div key={g.name}>
           <SectionLabel>{g.name}</SectionLabel>
           <ListGroup>
-            {g.items.map((l) => (
-              <div key={l.name} className="flex items-center gap-3 px-3 py-2">
-                <div className="h-14 w-12 shrink-0 rounded bg-white p-1">
-                  <ProductImage name={l.name} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[14px] font-extrabold text-ink">{l.name}</div>
-                  <div className="font-display text-[14px] font-bold text-ink">{chf(l.unit * l.qty)}</div>
-                </div>
-                <Stepper value={l.qty} onChange={(q) => setQty(l.name, q)} label={`Quantity of ${l.name}`} />
-              </div>
-            ))}
+            {g.items.map((l) => <BasketItem key={l.name} line={l} />)}
           </ListGroup>
         </div>
       ))}

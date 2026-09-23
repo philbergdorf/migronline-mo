@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useBasket } from '../lib/basket'
 
-export default function ProductQuantityControl({ name, price }: { name: string; price: string }) {
+export default function ProductQuantityControl({ name, price, discount }: { name: string; price: string; discount?: number }) {
   const { lines, addProduct, decrementProduct } = useBasket()
   const quantity = lines.find(line => line.name === name)?.qty ?? 0
   const [announcement, setAnnouncement] = useState('')
@@ -26,7 +26,7 @@ export default function ProductQuantityControl({ name, price }: { name: string; 
   const add = () => {
     restoreFocus.current = quantity === 0
     setExpanded(true)
-    addProduct({ name, price })
+    addProduct({ name, price, discount })
     setAnnouncement(`${name}: ${quantity + 1} in basket.`)
   }
   return <div ref={controlRef} className="product-quantity-control" onPointerDown={() => setActivity(value => value + 1)} onKeyDown={event => {
