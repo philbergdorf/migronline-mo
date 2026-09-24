@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { Page } from 'konsta/react'
 import { Compass, TextSearch, BadgePercent, ChefHat, ShoppingBasket } from 'lucide-react'
@@ -19,6 +19,9 @@ import CookPage from './pages/CookPage'
 import BasketPage from './pages/BasketPage'
 import ProductSearch from './components/ProductSearch'
 import { BasketProvider } from './lib/basket'
+import AccountPage from './pages/AccountPage'
+
+const COOK_TAB_KEY = 'migronline-show-cook-tab'
 
 const TABS: Tab[] = [
   { path: '/', label: 'Discover', Icon: Compass },
@@ -31,9 +34,28 @@ const TABS: Tab[] = [
 export default function App() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const [showCookTab, setShowCookTab] = useState(() => {
+    try {
+      return localStorage.getItem(COOK_TAB_KEY) === 'true'
+    } catch {
+      return false
+    }
+  })
+  const updateCookTab = (visible: boolean) => {
+    setShowCookTab(visible)
+    try {
+      localStorage.setItem(COOK_TAB_KEY, String(visible))
+    } catch {
+      // Keep the preference usable for this session if storage is unavailable.
+    }
+  }
   const shoppingRef = useRef<HTMLDivElement>(null)
+  const navigationRef = useRef<HTMLDivElement>(null)
+  const searchTriggerRef = useRef<HTMLButtonElement>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
   useEffect(() => {
     shoppingRef.current?.querySelector<HTMLElement>('.overflow-auto')?.scrollTo({ top: 0 })
+    setSearchOpen(false)
   }, [pathname])
 
   return (
@@ -46,6 +68,7 @@ export default function App() {
           <Page className="!bg-transparent">
             <Routes>
               <Route path="/" element={<DiscoverPage />} />
+              <Route path="/account" element={<AccountPage showCookTab={showCookTab} onShowCookTabChange={updateCookTab} />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/top-products" element={<TopProductsPage />} />
               <Route path="/products/favorites" element={<FavoriteProductsPage />} />
@@ -54,13 +77,28 @@ export default function App() {
               <Route path="/products/orders" element={<RecentOrdersPage />} />
               <Route path="/promotions" element={<PromotionsPage />} />
               <Route path="/cook" element={<CookPage />} />
-              <Route path="/basket" element={<BasketPage />} />
+              <Route path="/basket" element={<BasketPage showCookTab={showCookTab} />} />
             </Routes>
           </Page>
-
-          <GlassTabbar tabs={TABS} active={pathname} onChange={navigate} />
           </div>
-          {pathname !== '/cook' && pathname !== '/basket' && <ProductSearch key={pathname} background={shoppingRef} />}
+          <GlassTabbar
+            containerRef={navigationRef}
+            tabs={TABS.filter(tab => tab.path !== '/cook' || showCookTab)}
+            active={pathname}
+            onChange={(path) => { setSearchOpen(false); navigate(path) }}
+            searchAction={!showCookTab ? { onClick: () => setSearchOpen(true), expanded: searchOpen, buttonRef: searchTriggerRef } : undefined}
+          />
+          {(!showCookTab || (pathname !== '/cook' && pathname !== '/basket' && pathname !== '/account')) && (
+            <ProductSearch
+              key={pathname}
+              background={shoppingRef}
+              navigation={navigationRef}
+              open={searchOpen}
+              onOpenChange={setSearchOpen}
+              docked={!showCookTab}
+              triggerRef={searchTriggerRef}
+            />
+          )}
         </PhoneFrame>
         </BasketProvider>
       </FavoritesProvider>

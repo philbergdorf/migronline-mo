@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import ProductImage from '../components/ProductImage'
 import ProductQuantityControl from '../components/ProductQuantityControl'
 import { useBasket, type BasketLine } from '../lib/basket'
+import { CATEGORY_TREE, getProductDepartment } from '../lib/productCategories'
 import { PageTitle, SectionLabel, OrderSummary, ListGroup, HScroll, ProductCard } from '../components/ui'
 
 const MIN_ORDER = 60
@@ -40,21 +41,30 @@ function BasketItem({ line }: { line: BasketLine }) {
   </div>
 }
 
-export default function BasketPage() {
+export default function BasketPage({ showCookTab }: { showCookTab: boolean }) {
   const { lines } = useBasket()
   const [view, setView] = useState<'categories' | 'meals'>('categories')
+  const activeView = showCookTab ? view : 'categories'
 
   const groups = useMemo(() => {
-    const key = view === 'categories' ? 'category' : 'meal'
     const map = new Map<string, BasketLine[]>()
     for (const l of lines) {
       if (l.qty === 0) continue
-      const g = l[key]
+      const g = activeView === 'categories' ? getProductDepartment(l.name) : l.meal
       if (!map.has(g)) map.set(g, [])
       map.get(g)!.push(l)
     }
-    return [...map.entries()].map(([name, items]) => ({ name, items }))
-  }, [lines, view])
+    const entries = [...map.entries()]
+    if (activeView === 'categories') {
+      const order = CATEGORY_TREE.map(category => category.name)
+      const position = (name: string) => {
+        const index = order.indexOf(name)
+        return index < 0 ? order.length : index
+      }
+      entries.sort(([a], [b]) => position(a) - position(b))
+    }
+    return entries.map(([name, items]) => ({ name, items }))
+  }, [lines, activeView])
 
   const subtotal = lines.reduce((sum, l) => sum + l.unit * l.qty, 0)
   const delivery = 5.9
@@ -71,7 +81,7 @@ export default function BasketPage() {
       <PageTitle>Basket</PageTitle>
 
       {/* Categories / Meals toggle */}
-      <div className="px-4">
+      {showCookTab && <div className="px-4">
         <div className="flex rounded-full bg-sand p-1">
           {(['categories', 'meals'] as const).map((v) => (
             <button
@@ -85,7 +95,7 @@ export default function BasketPage() {
             </button>
           ))}
         </div>
-      </div>
+      </div>}
 
       {/* Grouped, compact item list */}
       {groups.map((g) => (

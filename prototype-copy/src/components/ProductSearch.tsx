@@ -7,12 +7,15 @@ import ShoppingProductCard from './ShoppingProductCard'
 
 const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
-export default function ProductSearch({ background }: {
+export default function ProductSearch({ background, navigation, open, onOpenChange, docked, triggerRef }: {
   background: RefObject<HTMLDivElement>
+  navigation: RefObject<HTMLDivElement>
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  docked: boolean
+  triggerRef: RefObject<HTMLButtonElement>
 }) {
-  const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
   const words = normalize(query).trim().split(/\s+/).filter(Boolean)
@@ -28,42 +31,47 @@ export default function ProductSearch({ background }: {
     if (!open) return
     const content = background.current
     if (content) content.inert = true
+    const nav = navigation.current
+    if (nav && !docked) nav.inert = true
+    const dialog = dialogRef.current
     inputRef.current?.focus()
     return () => {
       if (content) content.inert = false
-      buttonRef.current?.focus()
+      if (nav) nav.inert = false
+      if (dialog?.contains(document.activeElement)) triggerRef.current?.focus()
     }
-  }, [open, background])
+  }, [open, background, navigation, docked, triggerRef])
 
   return (
     <>
-      <button
-        ref={buttonRef}
+      {!docked && <button
+        ref={triggerRef}
         type="button"
         aria-label="Search products"
         aria-haspopup="dialog"
         aria-expanded={open}
-        onClick={() => setOpen(true)}
+        onClick={() => onOpenChange(true)}
         hidden={open}
         style={{ bottom: 'calc(max(0.75rem, env(safe-area-inset-bottom)) + 5rem)' }}
         className={`${open ? 'hidden' : 'grid'} absolute right-5 z-40 h-14 w-14 place-items-center rounded-full border-2 border-white bg-primary text-white shadow-[0_6px_24px_rgba(51,51,51,0.28)] transition-transform active:scale-95`}
       >
         <Search size={27} strokeWidth={2.2} />
-      </button>
+      </button>}
 
       {open && (
         <div
           ref={dialogRef}
           role="dialog"
-          aria-modal="true"
+          aria-modal={!docked}
           aria-labelledby="product-search-title"
-          className="absolute inset-0 z-50 flex flex-col bg-cream"
+          className={`absolute inset-x-0 top-0 z-50 flex flex-col bg-cream ${docked ? '' : 'bottom-0'}`}
+          style={docked ? { bottom: 'calc(max(0.75rem, env(safe-area-inset-bottom)) + 4rem)' } : undefined}
           onKeyDown={(event) => {
             if (event.key === 'Escape') {
               event.stopPropagation()
-              setOpen(false)
+              onOpenChange(false)
             }
-            if (event.key === 'Tab') {
+            if (!docked && event.key === 'Tab') {
               const controls = dialogRef.current?.querySelectorAll<HTMLElement>('button, input')
               if (!controls?.length) return
               const first = controls[0]
@@ -80,7 +88,7 @@ export default function ProductSearch({ background }: {
         >
           <div className="shrink-0 border-b border-hairline bg-surface px-4 pb-4 pt-[calc(env(safe-area-inset-top)+2rem)]">
             <div className="mb-4 flex items-center gap-2">
-              <button type="button" aria-label="Close search" onClick={() => setOpen(false)} className="grid h-11 w-11 place-items-center rounded-full text-ink">
+              <button type="button" aria-label="Close search" onClick={() => onOpenChange(false)} className="grid h-11 w-11 place-items-center rounded-full text-ink">
                 <ArrowLeft size={23} />
               </button>
               <h2 id="product-search-title" className="font-display text-[26px] font-bold text-ink">Search products</h2>

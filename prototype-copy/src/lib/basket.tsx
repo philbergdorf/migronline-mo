@@ -5,33 +5,20 @@ export type BasketLine = {
   name: string
   unit: number
   qty: number
-  category: string
   meal: string
   saved?: number // savings per unit vs. regular price
 }
 
 const INITIAL: BasketLine[] = [
-  { name: 'Bio Bananas', unit: 3.2, qty: 2, category: 'Fruit & Veg', meal: 'Breakfast', saved: 0.4 },
-  { name: 'Whole Milk', unit: 1.6, qty: 1, category: 'Dairy', meal: 'Breakfast' },
-  { name: 'Free-range Eggs', unit: 5.9, qty: 1, category: 'Dairy', meal: 'Breakfast' },
-  { name: 'Spaghetti', unit: 1.8, qty: 1, category: 'Pantry', meal: 'Pasta Carbonara' },
-  { name: 'Pecorino', unit: 4.2, qty: 1, category: 'Dairy', meal: 'Pasta Carbonara', saved: 0.8 },
-  { name: 'Guanciale', unit: 5.5, qty: 1, category: 'Meat', meal: 'Pasta Carbonara' },
-  { name: 'Cherry Tomatoes', unit: 2.8, qty: 1, category: 'Fruit & Veg', meal: 'Tomato & Basil Salad', saved: 0.6 },
-  { name: 'Mozzarella', unit: 2.4, qty: 1, category: 'Dairy', meal: 'Tomato & Basil Salad' },
+  { name: 'Bio Bananas', unit: 3.2, qty: 2, meal: 'Breakfast', saved: 0.4 },
+  { name: 'Whole Milk', unit: 1.6, qty: 1, meal: 'Breakfast' },
+  { name: 'Free-range Eggs', unit: 5.9, qty: 1, meal: 'Breakfast' },
+  { name: 'Spaghetti', unit: 1.8, qty: 1, meal: 'Pasta Carbonara' },
+  { name: 'Pecorino', unit: 4.2, qty: 1, meal: 'Pasta Carbonara', saved: 0.8 },
+  { name: 'Guanciale', unit: 5.5, qty: 1, meal: 'Pasta Carbonara' },
+  { name: 'Cherry Tomatoes', unit: 2.8, qty: 1, meal: 'Tomato & Basil Salad', saved: 0.6 },
+  { name: 'Mozzarella', unit: 2.4, qty: 1, meal: 'Tomato & Basil Salad' },
 ]
-
-
-const CATEGORIES: Record<string, string[]> = {
-  'Fruit & Veg': ['Bio Bananas', 'Apples', 'Cherry Tomatoes', 'Avocado', 'Grapes', 'Bell Peppers'],
-  Dairy: ['Whole Milk', 'Free-range Eggs', 'Greek Yoghurt', 'Butter', 'Gruyère AOP', 'Pecorino', 'Mozzarella'],
-  Bakery: ['Sourdough Bread', 'Croissant', 'Pretzel', 'Baguette'],
-  Meat: ['Chicken Breast', 'Guanciale'],
-  Drinks: ['Orange Juice', 'Sparkling Water', 'Coffee Beans'],
-  Wine: ['Rosé de Provence', 'Pinot Noir', 'Chasselas', 'Prosecco'],
-  Snacks: ['Dark Chocolate', 'Potato Chips', 'Almonds', 'Salted Nuts'],
-  Household: ['Laundry Detergent', 'Toilet Paper', 'Dishwasher Tabs'],
-}
 
 type BasketContextValue = {
   lines: BasketLine[]
@@ -57,8 +44,7 @@ export function BasketProvider({ children }: { children: ReactNode }) {
             saved: Math.round((referenceUnit - bestUnit) * 100) / 100 }
         })
       }
-      const category = Object.entries(CATEGORIES).find(([, names]) => names.includes(product.name))?.[0] ?? 'Pantry'
-      return [...previous, { name: product.name, unit, qty: 1, category, meal: 'Other products',
+      return [...previous, { name: product.name, unit, qty: 1, meal: 'Other products',
         saved: Math.round((regularUnit - unit) * 100) / 100 }]
     })
   }

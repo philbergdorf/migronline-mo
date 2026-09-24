@@ -30,7 +30,7 @@ export function ProfileButton({ onClick }: { onClick?: () => void }) {
   return (
     <button
       type="button"
-      aria-label="Profile"
+      aria-label="Account"
       onClick={onClick}
       className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-hairline bg-surface text-forest shadow-soft transition-transform duration-150 ease-bounce active:scale-95"
     >

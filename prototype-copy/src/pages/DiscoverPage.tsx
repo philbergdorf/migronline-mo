@@ -49,11 +49,11 @@ export default function DiscoverPage() {
   return (
     <>
       {/* Campaign slot: identical position and destination in each visual direction. */}
-      {fresh ? <FreshHero onExplore={() => navigate('/promotions')} /> : (
+      {fresh ? <FreshHero onExplore={() => navigate('/promotions')} onAccount={() => navigate('/account')} /> : (
         <div className="px-4 pt-[calc(env(safe-area-inset-top)+1.25rem)]">
           <div className="mb-3 flex items-center justify-between px-1">
             <h1 className="font-display text-[28px] font-bold text-ink">Discover</h1>
-            <ProfileButton />
+            <ProfileButton onClick={() => navigate('/account')} />
           </div>
           <WineFestivalBanner onExplore={() => navigate('/promotions')} />
         </div>
