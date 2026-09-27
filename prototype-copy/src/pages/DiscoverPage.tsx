@@ -42,7 +42,7 @@ function SeeAll({ onClick }: { onClick: () => void }) {
   )
 }
 
-export default function DiscoverPage() {
+export default function DiscoverPage({ showCookTab, showScratchAndWin }: { showCookTab: boolean; showScratchAndWin: boolean }) {
   const navigate = useNavigate()
   const fresh = useFreshDesign()
 
@@ -88,38 +88,40 @@ export default function DiscoverPage() {
         ))}
       </HScroll>
 
-      {/* Scratch & Win */}
-      <SectionLabel>Scratch &amp; Win</SectionLabel>
-      <div className="px-4">
-        <Card className="overflow-hidden !border-0 bg-gradient-to-br from-citrus to-berry !shadow-cta">
-          <div className="flex items-center gap-4 p-5 text-white">
-            <Ticket size={48} className="shrink-0" aria-hidden="true" />
-            <div className="min-w-0 flex-1">
-              <h3 className="font-display text-[20px] font-bold">Scratch &amp; Win</h3>
-              <p className="text-[14px] text-white/90">
-                A prize hides under every card — one free scratch daily.
-              </p>
+      {showScratchAndWin && <>
+        <SectionLabel>Scratch &amp; Win</SectionLabel>
+        <div className="px-4">
+          <Card className="overflow-hidden !border-0 bg-gradient-to-br from-citrus to-berry !shadow-cta">
+            <div className="flex items-center gap-4 p-5 text-white">
+              <Ticket size={48} className="shrink-0" aria-hidden="true" />
+              <div className="min-w-0 flex-1">
+                <h3 className="font-display text-[20px] font-bold">Scratch &amp; Win</h3>
+                <p className="text-[14px] text-white/90">
+                  A prize hides under every card — one free scratch daily.
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="px-5 pb-5">
-            <Button variant="secondary" className="!text-berry">
-              Scratch now
-            </Button>
-          </div>
-        </Card>
-      </div>
+            <div className="px-5 pb-5">
+              <Button variant="secondary" className="!text-berry">
+                Scratch now
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </>}
 
-      {/* New recipes */}
-      <SectionLabel action={<SeeAll onClick={() => navigate('/cook')} />}>
-        New recipes
-      </SectionLabel>
-      <HScroll>
-        {RECIPES.map((r) => (
-          <div key={r.name} className="w-44 shrink-0">
-            <RecipeCard {...r} />
-          </div>
-        ))}
-      </HScroll>
+      {showCookTab && <>
+        <SectionLabel action={<SeeAll onClick={() => navigate('/cook')} />}>
+          New recipes
+        </SectionLabel>
+        <HScroll>
+          {RECIPES.map((r) => (
+            <div key={r.name} className="w-44 shrink-0">
+              <RecipeCard {...r} />
+            </div>
+          ))}
+        </HScroll>
+      </>}
 
       <div className="h-44" />
     </>

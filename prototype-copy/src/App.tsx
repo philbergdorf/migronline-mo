@@ -22,6 +22,7 @@ import { BasketProvider } from './lib/basket'
 import AccountPage from './pages/AccountPage'
 
 const COOK_TAB_KEY = 'migronline-show-cook-tab'
+const SCRATCH_AND_WIN_KEY = 'migronline-show-scratch-and-win'
 
 const TABS: Tab[] = [
   { path: '/', label: 'Discover', Icon: Compass },
@@ -49,6 +50,21 @@ export default function App() {
       // Keep the preference usable for this session if storage is unavailable.
     }
   }
+  const [showScratchAndWin, setShowScratchAndWin] = useState(() => {
+    try {
+      return localStorage.getItem(SCRATCH_AND_WIN_KEY) !== 'false'
+    } catch {
+      return true
+    }
+  })
+  const updateScratchAndWin = (visible: boolean) => {
+    setShowScratchAndWin(visible)
+    try {
+      localStorage.setItem(SCRATCH_AND_WIN_KEY, String(visible))
+    } catch {
+      // Keep the preference usable for this session if storage is unavailable.
+    }
+  }
   const shoppingRef = useRef<HTMLDivElement>(null)
   const navigationRef = useRef<HTMLDivElement>(null)
   const searchTriggerRef = useRef<HTMLButtonElement>(null)
@@ -67,8 +83,8 @@ export default function App() {
           <div ref={shoppingRef} className="relative h-full">
           <Page className="!bg-transparent">
             <Routes>
-              <Route path="/" element={<DiscoverPage />} />
-              <Route path="/account" element={<AccountPage showCookTab={showCookTab} onShowCookTabChange={updateCookTab} />} />
+              <Route path="/" element={<DiscoverPage showCookTab={showCookTab} showScratchAndWin={showScratchAndWin} />} />
+              <Route path="/account" element={<AccountPage showCookTab={showCookTab} onShowCookTabChange={updateCookTab} showScratchAndWin={showScratchAndWin} onShowScratchAndWinChange={updateScratchAndWin} />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/top-products" element={<TopProductsPage />} />
               <Route path="/products/favorites" element={<FavoriteProductsPage />} />

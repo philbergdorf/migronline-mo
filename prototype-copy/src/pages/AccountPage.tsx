@@ -5,9 +5,13 @@ import { Card, PageTitle, SectionLabel, Toggle } from '../components/ui'
 export default function AccountPage({
   showCookTab,
   onShowCookTabChange,
+  showScratchAndWin,
+  onShowScratchAndWinChange,
 }: {
   showCookTab: boolean
   onShowCookTabChange: (visible: boolean) => void
+  showScratchAndWin: boolean
+  onShowScratchAndWinChange: (visible: boolean) => void
 }) {
   const navigate = useNavigate()
 
@@ -20,13 +24,20 @@ export default function AccountPage({
       </div>
       <PageTitle>Account</PageTitle>
       <SectionLabel>Preferences</SectionLabel>
-      <div className="px-4">
+      <div className="space-y-3 px-4">
         <Card className="flex items-center justify-between gap-4 p-4">
           <div>
             <p className="text-[16px] font-bold text-ink">Show Cook tab</p>
             <p className="mt-1 text-[13px] text-label">Add Cook to the bottom navigation.</p>
           </div>
           <Toggle label="Show Cook tab" checked={showCookTab} onChange={onShowCookTabChange} />
+        </Card>
+        <Card className="flex items-center justify-between gap-4 p-4">
+          <div>
+            <p className="text-[16px] font-bold text-ink">Show Scratch &amp; Win</p>
+            <p className="mt-1 text-[13px] text-label">Show the game on Discover.</p>
+          </div>
+          <Toggle label="Show Scratch & Win" checked={showScratchAndWin} onChange={onShowScratchAndWinChange} />
         </Card>
       </div>
       <div className="h-32" />

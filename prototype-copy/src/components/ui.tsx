@@ -474,10 +474,10 @@ export function RecipeCard({
   image: string
 }) {
   return (
-    <div className="ui-product-card rounded-card border border-hairline bg-surface p-3">
+    <div className="ui-product-card flex h-full flex-col rounded-card border border-hairline bg-surface p-3">
       <img src={`${import.meta.env.BASE_URL}images/recipes/${image}.jpg`} alt={name} loading="lazy" className="mb-3 h-[110px] w-full rounded-lg object-cover" />
-      <div className="text-[15px] font-extrabold leading-tight text-ink">{name}</div>
-      <div className="mt-1.5 flex items-center gap-1 text-[13px] font-bold text-label">
+      <div className="min-h-10 text-[15px] font-extrabold leading-tight text-ink">{name}</div>
+      <div className="mt-auto flex items-center gap-1 pt-1.5 text-[13px] font-bold text-label">
         <Clock size={14} strokeWidth={2.2} /> {time}
       </div>
     </div>
