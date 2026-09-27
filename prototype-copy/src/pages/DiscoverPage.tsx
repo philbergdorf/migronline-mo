@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useFreshDesign } from '../fresh/context'
 import FreshHero from '../fresh/FreshHero'
-import { Ticket } from 'lucide-react'
+import { ArrowRight, Ticket } from 'lucide-react'
 import WineFestivalBanner from '../components/WineFestivalBanner'
 import {
   SectionLabel,
@@ -42,6 +42,17 @@ function SeeAll({ onClick }: { onClick: () => void }) {
   )
 }
 
+function ShowAllCard({ to, title, description, label }: { to: string; title: string; description: string; label: string }) {
+  return <Link to={to} aria-label={label}
+    className="group flex w-40 shrink-0 flex-col justify-center self-stretch rounded-card border border-primary/30 bg-primary/5 p-4 text-left transition-colors hover:bg-primary/10 active:bg-primary/15">
+    <span className="font-display text-[18px] font-bold leading-tight text-ink">{title}</span>
+    <span className="mt-2 text-[13px] leading-relaxed text-muted">{description}</span>
+    <span className="mt-6 flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-3 py-2 text-[14px] font-bold text-white">
+      Show all <ArrowRight size={18} aria-hidden="true" />
+    </span>
+  </Link>
+}
+
 export default function DiscoverPage({ showCookTab, showScratchAndWin }: { showCookTab: boolean; showScratchAndWin: boolean }) {
   const navigate = useNavigate()
   const fresh = useFreshDesign()
@@ -65,7 +76,7 @@ export default function DiscoverPage({ showCookTab, showScratchAndWin }: { showC
       </div>
 
       {/* Your regular buys */}
-      <SectionLabel action={<SeeAll onClick={() => navigate('/products')} />}>
+      <SectionLabel action={<SeeAll onClick={() => navigate('/products/top-products')} />}>
         Your regular buys
       </SectionLabel>
       <HScroll>
@@ -74,6 +85,7 @@ export default function DiscoverPage({ showCookTab, showScratchAndWin }: { showC
             <ProductCard {...p} />
           </div>
         ))}
+        <ShowAllCard to="/products/top-products" title="Your regular buys" description="Browse your everyday favourites." label="Show all your regular buys" />
       </HScroll>
 
       {/* Promotions for you */}
@@ -86,6 +98,7 @@ export default function DiscoverPage({ showCookTab, showScratchAndWin }: { showC
             <ProductCard {...p} />
           </div>
         ))}
+        <ShowAllCard to="/promotions" title="More offers" description="Explore all current promotions." label="Show all promotions" />
       </HScroll>
 
       {showScratchAndWin && <>
@@ -97,12 +110,12 @@ export default function DiscoverPage({ showCookTab, showScratchAndWin }: { showC
               <div className="min-w-0 flex-1">
                 <h3 className="font-display text-[20px] font-bold">Scratch &amp; Win</h3>
                 <p className="text-[14px] text-white/90">
-                  A prize hides under every card — one free scratch daily.
+                  Scratch for a chance to win — replay anytime.
                 </p>
               </div>
             </div>
             <div className="px-5 pb-5">
-              <Button variant="secondary" className="!text-berry">
+              <Button variant="secondary" className="!text-berry" onClick={() => navigate('/scratch-win')}>
                 Scratch now
               </Button>
             </div>

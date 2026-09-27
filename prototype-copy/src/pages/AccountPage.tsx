@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Card, PageTitle, SectionLabel, Toggle } from '../components/ui'
+import RewardWallet from '../components/RewardWallet'
 
 export default function AccountPage({
   showCookTab,
@@ -40,6 +41,8 @@ export default function AccountPage({
           <Toggle label="Show Scratch & Win" checked={showScratchAndWin} onChange={onShowScratchAndWinChange} />
         </Card>
       </div>
+      <SectionLabel>Rewards</SectionLabel>
+      <RewardWallet />
       <div className="h-32" />
     </>
   )

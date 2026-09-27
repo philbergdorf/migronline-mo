@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:rewards": "node --test tests/rewardRules.test.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.5.4",

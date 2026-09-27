@@ -65,7 +65,7 @@ export default function ProductsPage() {
         ))}
         <button
           type="button"
-          onClick={() => navigate('/top-products')}
+          onClick={() => navigate('/products/top-products')}
           className="flex w-full items-center justify-center gap-1 px-3 py-3.5 text-[15px] font-bold text-forest transition active:bg-sand/60"
         >
           Show all

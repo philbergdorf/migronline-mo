@@ -114,8 +114,8 @@ export default function TopProductsPage() {
       <div className="flex items-center gap-3 px-4 pb-2 pt-[calc(env(safe-area-inset-top)+1.75rem)]">
         <button
           type="button"
-          aria-label="Back"
-          onClick={() => navigate(-1)}
+          aria-label="Back to Products"
+          onClick={() => navigate('/products')}
           className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-hairline bg-surface text-forest shadow-soft transition active:scale-95"
         >
           <ChevronLeft size={20} strokeWidth={2.2} />

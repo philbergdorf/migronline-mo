@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Navigate, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { Page } from 'konsta/react'
 import { Compass, TextSearch, BadgePercent, ChefHat, ShoppingBasket } from 'lucide-react'
 import PhoneFrame from './PhoneFrame'
@@ -20,6 +20,8 @@ import BasketPage from './pages/BasketPage'
 import ProductSearch from './components/ProductSearch'
 import { BasketProvider } from './lib/basket'
 import AccountPage from './pages/AccountPage'
+import ScratchWinPage from './pages/ScratchWinPage'
+import { RewardsProvider } from './lib/rewards'
 
 const COOK_TAB_KEY = 'migronline-show-cook-tab'
 const SCRATCH_AND_WIN_KEY = 'migronline-show-scratch-and-win'
@@ -79,14 +81,17 @@ export default function App() {
       <MealPlanProvider>
       <FavoritesProvider>
         <BasketProvider>
+        <RewardsProvider>
         <PhoneFrame>
           <div ref={shoppingRef} className="relative h-full">
           <Page className="!bg-transparent">
             <Routes>
               <Route path="/" element={<DiscoverPage showCookTab={showCookTab} showScratchAndWin={showScratchAndWin} />} />
               <Route path="/account" element={<AccountPage showCookTab={showCookTab} onShowCookTabChange={updateCookTab} showScratchAndWin={showScratchAndWin} onShowScratchAndWinChange={updateScratchAndWin} />} />
+              <Route path="/scratch-win" element={<ScratchWinPage />} />
               <Route path="/products" element={<ProductsPage />} />
-              <Route path="/top-products" element={<TopProductsPage />} />
+              <Route path="/products/top-products" element={<TopProductsPage />} />
+              <Route path="/top-products" element={<Navigate to="/products/top-products" replace />} />
               <Route path="/products/favorites" element={<FavoriteProductsPage />} />
               <Route path="/products/new" element={<NewProductsPage />} />
               <Route path="/products/categories" element={<ProductCategoriesPage />} />
@@ -104,7 +109,7 @@ export default function App() {
             onChange={(path) => { setSearchOpen(false); navigate(path) }}
             searchAction={!showCookTab ? { onClick: () => setSearchOpen(true), expanded: searchOpen, buttonRef: searchTriggerRef } : undefined}
           />
-          {(!showCookTab || (pathname !== '/cook' && pathname !== '/basket' && pathname !== '/account')) && (
+          {(!showCookTab || (pathname !== '/cook' && pathname !== '/basket' && pathname !== '/account' && pathname !== '/scratch-win')) && (
             <ProductSearch
               key={pathname}
               background={shoppingRef}
@@ -116,6 +121,7 @@ export default function App() {
             />
           )}
         </PhoneFrame>
+        </RewardsProvider>
         </BasketProvider>
       </FavoritesProvider>
       </MealPlanProvider>

@@ -1,9 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import ProductImage from '../components/ProductImage'
 import ProductQuantityControl from '../components/ProductQuantityControl'
 import { useBasket, type BasketLine } from '../lib/basket'
 import { CATEGORY_TREE, getProductDepartment } from '../lib/productCategories'
 import { PageTitle, SectionLabel, OrderSummary, ListGroup, HScroll, ProductCard } from '../components/ui'
+import { useRewards } from '../lib/rewards'
+import { PRIZES, rewardDiscount } from '../lib/rewardRules'
 
 const MIN_ORDER = 60
 
@@ -43,6 +46,20 @@ function BasketItem({ line }: { line: BasketLine }) {
 
 export default function BasketPage({ showCookTab }: { showCookTab: boolean }) {
   const { lines } = useBasket()
+  const { rewards, selectedId, selectReward } = useRewards()
+  const location = useLocation()
+  const rewardRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (location.state?.showRewards) {
+      const frame = requestAnimationFrame(() => rewardRef.current?.scrollIntoView({ block: 'start' }))
+      return () => cancelAnimationFrame(frame)
+    }
+  }, [location.key, location.state])
+  const [now, setNow] = useState(Date.now)
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(timer)
+  }, [])
   const [view, setView] = useState<'categories' | 'meals'>('categories')
   const activeView = showCookTab ? view : 'categories'
 
@@ -66,9 +83,11 @@ export default function BasketPage({ showCookTab }: { showCookTab: boolean }) {
     return entries.map(([name, items]) => ({ name, items }))
   }, [lines, activeView])
 
-  const subtotal = lines.reduce((sum, l) => sum + l.unit * l.qty, 0)
+  const subtotal = Math.round(lines.reduce((sum, l) => sum + l.unit * l.qty, 0) * 100) / 100
   const delivery = 5.9
-  const total = subtotal + delivery
+  const selectedReward = rewards.find(reward => reward.id === selectedId)
+  const discount = rewardDiscount(selectedReward, subtotal, now)
+  const total = subtotal + delivery - discount
   const itemCount = lines.reduce((n, l) => n + l.qty, 0)
 
   const totalSaved = lines.reduce((sum, l) => sum + (l.saved ?? 0) * l.qty, 0)
@@ -109,11 +128,25 @@ export default function BasketPage({ showCookTab }: { showCookTab: boolean }) {
 
       {/* Summary */}
       <SectionLabel>{itemCount} items · Summary</SectionLabel>
+      {rewards.length > 0 && <div ref={rewardRef} className="mx-4 mb-4 rounded-card border border-hairline bg-surface p-4">
+        <label htmlFor="basket-reward" className="font-bold">Scratch &amp; Win reward</label>
+        <p className="mt-1 text-xs text-label">Test rewards · Choose one per order</p>
+        <select id="basket-reward" value={selectedId ?? ''} onChange={event => selectReward(event.target.value || null)} className="mt-3 min-h-11 w-full rounded-lg border border-hairline bg-white px-2 text-sm">
+          <option value="">No reward selected</option>
+          {rewards.map(reward => <option key={reward.id} value={reward.id} disabled={reward.expiresAt <= now}>{PRIZES[reward.kind].title}{reward.expiresAt <= now ? ' — expired' : ` · expires ${new Date(reward.expiresAt).toLocaleDateString('en-GB')}`}</option>)}
+        </select>
+        {selectedReward && <p role="status" className="mt-3 text-sm text-forest">
+          {selectedReward.expiresAt <= now ? 'This reward has expired. Choose another reward.' : discount > 0
+            ? `Reward applied. You save ${chf(discount)}.`
+            : `Add ${chf(PRIZES[selectedReward.kind].minimum - subtotal)} more in products to use this reward.`}
+        </p>}
+      </div>}
       <div className="px-4">
         <OrderSummary
           rows={[
             { label: 'Subtotal', value: chf(subtotal) },
             { label: 'Delivery', value: chf(delivery) },
+            ...(discount > 0 ? [{ label: selectedReward?.kind === 'delivery' ? 'Free delivery reward' : 'Scratch & Win reward', value: `−${chf(discount)}` }] : []),
           ]}
           saved={totalSaved > 0 ? chf(totalSaved) : undefined}
           total={{ label: 'Total', value: chf(total) }}

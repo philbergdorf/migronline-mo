@@ -4,6 +4,33 @@
 @tailwind components;
 @tailwind utilities;
 
+.scratch-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scratch-confetti span {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  opacity: 0;
+  animation: scratch-confetti-burst 2.3s ease-out both;
+}
+
+@keyframes scratch-confetti-burst {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(0) scale(0.3); }
+  8% { opacity: 1; }
+  30% { opacity: 1; transform: translate3d(var(--confetti-x), var(--confetti-y), 0) rotate(calc(var(--confetti-turn) * 0.35)) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--confetti-end-x), 380px, 0) rotate(var(--confetti-turn)) scale(0.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scratch-confetti { display: none; }
+}
+
 /* Type: Helvetica Now per the design system; system Helvetica stack as rendering fallback. */
 :root {
   font-family: 'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
