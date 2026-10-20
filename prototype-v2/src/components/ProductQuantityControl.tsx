@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useBasket } from '../lib/basket'
 
-export default function ProductQuantityControl({ name, price, discount, alwaysExpanded = false }: { name: string; price: string; discount?: number; alwaysExpanded?: boolean }) {
+export default function ProductQuantityControl({ name, price, discount, alwaysExpanded = false, inlineExpanded = false }: { name: string; price: string; discount?: number; alwaysExpanded?: boolean; inlineExpanded?: boolean }) {
   const { lines, addProduct, decrementProduct } = useBasket()
   const quantity = lines.find(line => line.name === name)?.qty ?? 0
   const [announcement, setAnnouncement] = useState('')
@@ -29,7 +29,7 @@ export default function ProductQuantityControl({ name, price, discount, alwaysEx
     addProduct({ name, price, discount })
     setAnnouncement(`${name}: ${quantity + 1} in basket.`)
   }
-  return <div ref={controlRef} className={`product-quantity-control${alwaysExpanded ? ' product-quantity-control--persistent' : ''}`} onPointerDown={() => setActivity(value => value + 1)} onKeyDown={event => {
+  return <div ref={controlRef} className={`product-quantity-control${alwaysExpanded ? ' product-quantity-control--persistent' : ''}${inlineExpanded && expanded && quantity > 0 ? ' product-quantity-control--inline-expanded' : ''}`} onPointerDown={() => setActivity(value => value + 1)} onKeyDown={event => {
     setActivity(value => value + 1)
     if (event.key === 'Escape' && expanded && !alwaysExpanded) {
       event.stopPropagation()

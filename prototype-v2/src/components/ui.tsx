@@ -414,7 +414,7 @@ export function ProductCard({
   badge?: ReactNode
 }) {
   return (
-    <div className="ui-product-card flex h-full flex-col rounded-card border border-hairline bg-surface p-3">
+    <div role="article" aria-label={name} className="ui-product-card flex h-full flex-col rounded-card border border-hairline bg-surface p-3">
       <div
         className="relative mb-3 h-[120px] rounded-lg bg-white p-2"
       >
@@ -425,7 +425,7 @@ export function ProductCard({
       <div className="text-[12px] font-bold text-label">{sub}</div>
       <div className="product-card-purchase mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
         <span className="font-display text-[18px] font-bold text-ink">{price}</span>
-        <ProductQuantityControl name={name} price={price} />
+        <ProductQuantityControl name={name} price={price} inlineExpanded />
       </div>
     </div>
   )
@@ -450,6 +450,8 @@ export function ProductRow({
 }) {
   return (
     <div
+      role="article"
+      aria-label={name}
       className={
         bare
           ? 'ui-product-row flex items-center gap-3 px-3 py-2.5'
@@ -465,8 +467,10 @@ export function ProductRow({
       <div className="min-w-0 flex-1">
         <div className="text-[15px] font-extrabold leading-tight text-ink">{name}</div>
         <div className="mt-0.5 text-[12px] font-bold leading-snug text-label">{sub}</div>
-        <div className="mt-2 font-display text-[16px] font-bold text-ink">{price}</div>
-        <div className="mt-2 flex justify-end"><ProductQuantityControl name={name} price={price} /></div>
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <span className="whitespace-nowrap font-display text-base font-bold text-ink">{price}</span>
+          <ProductQuantityControl name={name} price={price} inlineExpanded />
+        </div>
       </div>
     </div>
   )

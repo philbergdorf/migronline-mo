@@ -194,8 +194,11 @@ textarea {
 .category-empty h2 { font-weight: 700; font-size: 18px; }
 .category-empty p { margin-top: 6px; color: #737373; font-size: 14px; }
 .category-empty button { margin-top: 16px; min-height: 44px; color: #b84900; font-weight: 600; }
-.product-card-purchase { flex-wrap: nowrap; gap: 0; min-height: 44px; }
-.product-card-purchase .product-quantity-control { align-self: flex-end; }
+.product-quantity-control--inline-expanded { width: max-content; }
+.product-quantity-control--inline-expanded .product-quantity-stepper { position: relative; right: auto; bottom: auto; }
+.product-card-purchase { flex-wrap: wrap; gap: 4px; min-height: 44px; }
+.product-card-purchase > span { white-space: nowrap; }
+.product-card-purchase .product-quantity-control { align-self: flex-end; margin-left: auto; }
 .shopping-product-add svg { width: 21px; height: 21px; }
 @container (max-width: 315px) {
   .shopping-product-layout { grid-template-columns: 30% minmax(0,1fr); gap: 8px; padding: 9px; }
