@@ -245,6 +245,7 @@ export function FilterChips({
           <button
             key={item}
             type="button"
+            aria-pressed={selected}
             onClick={() => onChange(item)}
             className={`shrink-0 rounded-chip px-[18px] py-[9px] text-[14px] font-bold transition ${
               selected

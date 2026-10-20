@@ -26,6 +26,17 @@ browsing/results scroll positions survive tab switches until the app is refreshe
 The separate Search navigation item and floating search button have been removed.
 Cook remains an optional navigation destination in Account preferences.
 
+## Recent orders
+
+Recent orders lists sample weekly shops from the last six calendar months,
+grouped by month with the newest first. Dates use the Europe/Zurich timezone.
+Each order opens its own route with every purchased product grouped by category.
+The category navigation is shared with Your regular buys: it sticks to the top,
+jumps to a category, and highlights the visible section as you scroll.
+Product quantities show the past purchase; basket controls add individual units,
+and “Add order to basket” adds the original quantities. Order totals include
+CHF 5.90 delivery. Returning to the list preserves its scroll position.
+
 ## Home campaign teasers
 
 Discover includes a manually scrolling “Worth a look” slider between the

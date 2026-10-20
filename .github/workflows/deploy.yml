@@ -34,6 +34,8 @@ jobs:
         working-directory: prototype-v2
       - run: npm run test:rewards
         working-directory: prototype-v2
+      - run: npm run test:orders
+        working-directory: prototype-v2
       - name: Assemble both prototypes
         run: |
           mkdir -p _site/v2

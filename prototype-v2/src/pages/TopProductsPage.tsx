@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
-import { SectionLabel, ListGroup, ProductRow, FilterChips, Badge } from '../components/ui'
+import { Badge } from '../components/ui'
+import GroupedProductList from '../components/GroupedProductList'
 
 const CATEGORIES = [
   {
@@ -56,60 +56,11 @@ const CATEGORIES = [
   },
 ]
 
-function getScrollParent(node: HTMLElement | null): HTMLElement | null {
-  let el = node?.parentElement || null
-  while (el) {
-    const oy = getComputedStyle(el).overflowY
-    if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) return el
-    el = el.parentElement
-  }
-  return null
-}
-
 export default function TopProductsPage() {
   const navigate = useNavigate()
-  const rootRef = useRef<HTMLDivElement>(null)
-  const scrollerRef = useRef<HTMLElement | null>(null)
-  const sectionEls = useRef<Record<string, HTMLDivElement | null>>({})
-  const programmatic = useRef(false)
-  const [active, setActive] = useState(CATEGORIES[0].key)
-
-  useEffect(() => {
-    const scroller = getScrollParent(rootRef.current)
-    scrollerRef.current = scroller
-    if (!scroller) return
-    scroller.scrollTop = 0
-    const onScroll = () => {
-      if (programmatic.current) return
-      const threshold = scroller.getBoundingClientRect().top + 88
-      let current = CATEGORIES[0].key
-      for (const c of CATEGORIES) {
-        const el = sectionEls.current[c.key]
-        if (el && el.getBoundingClientRect().top <= threshold) current = c.key
-      }
-      setActive(current)
-    }
-    scroller.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => scroller.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const jumpTo = (key: string) => {
-    setActive(key)
-    const el = sectionEls.current[key]
-    const scroller = scrollerRef.current
-    if (!el || !scroller) return
-    programmatic.current = true
-    const target =
-      scroller.scrollTop + el.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 72
-    scroller.scrollTo({ top: Math.max(0, target), behavior: 'smooth' })
-    window.setTimeout(() => {
-      programmatic.current = false
-    }, 700)
-  }
 
   return (
-    <div ref={rootRef}>
+    <>
       {/* Header */}
       <div className="flex items-center gap-3 px-4 pb-2 pt-[calc(env(safe-area-inset-top)+1.75rem)]">
         <button
@@ -123,28 +74,7 @@ export default function TopProductsPage() {
         <h1 className="font-display text-[28px] font-bold text-forest">Your regular buys</h1>
       </div>
 
-      {/* Sticky scroll-spy */}
-      <div className="sticky top-0 z-20 border-b border-hairline bg-cream/90 py-2 backdrop-blur">
-        <FilterChips items={CATEGORIES.map((c) => c.key)} value={active} onChange={jumpTo} />
-      </div>
-
-      {CATEGORIES.map((c) => (
-        <div
-          key={c.key}
-          ref={(el) => {
-            sectionEls.current[c.key] = el
-          }}
-        >
-          <SectionLabel>{c.key}</SectionLabel>
-          <ListGroup>
-            {c.products.map((p) => (
-              <ProductRow key={p.name} bare {...p} />
-            ))}
-          </ListGroup>
-        </div>
-      ))}
-
-      <div className="h-44" />
-    </div>
+      <GroupedProductList groups={CATEGORIES} />
+    </>
   )
 }

@@ -15,6 +15,7 @@ import FavoriteProductsPage from './pages/FavoriteProductsPage'
 import NewProductsPage from './pages/NewProductsPage'
 import ProductCategoriesPage from './pages/ProductCategoriesPage'
 import RecentOrdersPage from './pages/RecentOrdersPage'
+import OrderDetailPage from './pages/OrderDetailPage'
 import PromotionsPage from './pages/PromotionsPage'
 import CookPage from './pages/CookPage'
 import BasketPage from './pages/BasketPage'
@@ -73,9 +74,10 @@ export default function App() {
   const [productSearch, setProductSearch] = useState<ProductSearchState>({ active: false, query: '' })
   const [recentSearches, setRecentSearches] = useState(SAMPLE_RECENT_SEARCHES)
   const productScrollPositions = useRef({ browse: 0, search: 0 })
+  const ordersScrollPosition = useRef(0)
   useEffect(() => {
     // Products restores its browsing/search position when returning to the tab.
-    if (pathname === '/products') return
+    if (pathname === '/products' || pathname === '/products/orders') return
     if (pathname === '/' && state?.newsTeaser) return
     shoppingRef.current?.querySelector<HTMLElement>('.overflow-auto')?.scrollTo({ top: 0 })
   }, [pathname, state])
@@ -101,7 +103,8 @@ export default function App() {
               <Route path="/products/favorites" element={<FavoriteProductsPage />} />
               <Route path="/products/new" element={<NewProductsPage />} />
               <Route path="/products/categories" element={<ProductCategoriesPage />} />
-              <Route path="/products/orders" element={<RecentOrdersPage />} />
+              <Route path="/products/orders" element={<RecentOrdersPage scrollPosition={ordersScrollPosition} />} />
+              <Route path="/products/orders/:orderId" element={<OrderDetailPage />} />
               <Route path="/promotions" element={<PromotionsPage />} />
               <Route path="/cook" element={<CookPage />} />
               <Route path="/basket" element={<BasketPage showCookTab={showCookTab} />} />
