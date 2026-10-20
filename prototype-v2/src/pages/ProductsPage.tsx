@@ -28,35 +28,30 @@ export default function ProductsPage(props: Omit<ProductSearchProps, 'children'>
               icon={<Heart size={18} strokeWidth={2} />}
               tint="bg-tomato/12 text-tomato"
               label="Favorites"
-              description="All your saved favorites in one place"
               onClick={() => navigate('/products/favorites')}
             />
             <NavRow
               icon={<Repeat2 size={18} strokeWidth={2} />}
               tint="bg-primary/12 text-forest"
               label="Your regular buys"
-              description="Products you buy regularly, ready to reorder"
               onClick={() => navigate('/products/top-products')}
             />
             <NavRow
               icon={<Sparkles size={18} strokeWidth={2} />}
               tint="bg-citrus/15 text-citrus"
               label="Newly available"
-              description="Products added to our range in the last 60 days"
               onClick={() => navigate('/products/new')}
             />
             <NavRow
               icon={<LayoutGrid size={18} strokeWidth={2} />}
               tint="bg-primary/12 text-forest"
               label="Categories"
-              description="Browse our full range by category"
               onClick={() => navigate('/products/categories')}
             />
             <NavRow
               icon={<Package size={18} strokeWidth={2} />}
               tint="bg-berry/12 text-berry"
               label="Your recent orders"
-              description="Easily reorder from your latest orders"
               onClick={() => navigate('/products/orders')}
             />
           </ListGroup>
