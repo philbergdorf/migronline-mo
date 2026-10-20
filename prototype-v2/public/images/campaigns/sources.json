@@ -1,0 +1,22 @@
+[
+  {
+    "file": "raclette.png",
+    "method": "Built-in image_gen",
+    "prompt": "Use case: ads-marketing. Asset type: landscape 16:9 photograph for a Swiss grocery mobile app campaign card. Create a polished photorealistic editorial studio photograph: two stainless-steel electric raclette grills with black rectangular grill plates, small raclette pans with melted cheese, boiled baby potatoes, cheese slices and tiny cornichons, arranged on a rich textured brick-red tabletop. Close three-quarter overhead angle, attractive professional food styling, realistic metal and food textures, warm soft directional light. The raclette grills are the hero, clearly recognizable and fully inside the image. Wide landscape composition, no people. No typography, logos, watermark, UI or borders. Match a premium Swiss supermarket magazine advertising photo. Output a single wide image."
+  },
+  {
+    "file": "autumn.png",
+    "method": "Built-in image_gen",
+    "prompt": "Use case: ads-marketing. Asset type: landscape 16:9 photograph for an autumn food inspiration card in a Swiss grocery mobile app. Create a premium photorealistic food magazine photograph of a cozy autumn meal: a ceramic bowl of vibrant pumpkin soup with a cream swirl and pumpkin seeds, roasted squash wedges on a small plate, crusty bread and fresh sage, on a warm cream linen table with a small pumpkin. Close three-quarter overhead composition, natural window light, tactile linen and ceramics, orange and sage-green accents. Food fills the frame with enough context for a wide mobile card crop. No people, text, logos, watermark, UI or borders. Output a single wide image."
+  },
+  {
+    "file": "new-products.png",
+    "method": "Built-in image_gen",
+    "prompt": "Use case: ads-marketing. Asset type: landscape 16:9 photograph for a new grocery products campaign card in a Swiss supermarket mobile app. Create a polished photorealistic studio still life of contemporary groceries on a soft peach and pink backdrop: an unbranded oat drink carton, a glass jar of granola, a simple yogurt pot, a small bag of pasta, a ripe avocado and colorful cherry tomatoes. Stylish fresh assortment with clean unbranded cream packaging, subtle green and orange details, no readable lettering. Playful but refined arrangement on low simple platforms, soft directional daylight, crisp packaging and natural food textures. Wide composition with every subject legible in a landscape mobile card crop. No people, typography, logos, watermark, UI or borders. Output a single wide image."
+  },
+  {
+    "file": "scratch-win.png",
+    "method": "Built-in image_gen",
+    "prompt": "Use case: ads-marketing. Asset type: landscape 16:9 photograph for a Scratch & Win teaser in a Swiss grocery mobile app. Create a polished photorealistic studio still life: a thick cream and orange scratch card with a broad metallic silver scratch-off rectangle, partially scratched to reveal a simple orange gift-box pictogram, resting at a slight angle on a warm orange and peach tabletop. Add a small elegant cream gift box tied with an orange ribbon behind the card and a few small silver paper confetti pieces. Premium supermarket campaign photography, playful but refined, realistic silver foil and paper texture, soft directional light and shadows. The scratch card is large, recognizable, well inside the frame, and legible at a small landscape mobile crop. No typography, numbers, currency, logos, black labels, watermark, UI, or borders. No people or hands. Output a single wide landscape image."
+  }
+]

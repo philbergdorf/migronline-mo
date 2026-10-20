@@ -21,12 +21,25 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: prototype-copy/package-lock.json
+          cache-dependency-path: |
+            prototype-copy/package-lock.json
+            prototype-v2/package-lock.json
       - run: npm ci
         working-directory: prototype-copy
       - run: npm run build
         working-directory: prototype-copy
+      - run: npm ci
+        working-directory: prototype-v2
+      - run: npm run build
+        working-directory: prototype-v2
+      - run: npm run test:rewards
+        working-directory: prototype-v2
+      - name: Assemble both prototypes
+        run: |
+          mkdir -p _site/v2
+          cp -R prototype-copy/dist/. _site/
+          cp -R prototype-v2/dist/. _site/v2/
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: prototype-copy/dist
+          publish_dir: _site

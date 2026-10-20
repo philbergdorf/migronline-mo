@@ -12,6 +12,14 @@ lives in the `migronline` repo.
 - **Tailwind CSS** (theme values mapped from the design tokens) + **Konsta UI**
 - **lucide-react** icons
 
+## Published prototypes
+
+- Current prototype: https://philbergdorf.github.io/migronline-mo/
+- Version 2: https://philbergdorf.github.io/migronline-mo/v2/
+
+Both use the prototype password `migi`. GitHub Pages builds `prototype-copy` at
+the site root and `prototype-v2` under `/v2/` on every push to `main`.
+
 ## Getting started
 
 ```bash
